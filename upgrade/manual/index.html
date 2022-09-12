@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Tags :: c3os documentation</title>
+    <title>Manual :: c3os documentation</title>
 
     
     <link href="/css/nucleus.css?1663019226" rel="stylesheet">
@@ -37,7 +37,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/tags/">
+  <body class="" data-url="/upgrade/manual/">
     <nav id="sidebar" class="">
 
 
@@ -319,7 +319,7 @@
   
     
     <li data-nav-id="/upgrade/" title="Upgrade" class="dd-item
-        
+        parent
         
         
         ">
@@ -345,7 +345,7 @@
  
   
     
-      <li data-nav-id="/upgrade/manual/" title="Manual" class="dd-item ">
+      <li data-nav-id="/upgrade/manual/" title="Manual" class="dd-item active">
         <a href="/upgrade/manual/">
         <b>- </b>Manual
         
@@ -795,6 +795,17 @@
               <div>
                 <div id="top-bar">
                 
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='Edit this page' href="https://github.com/c3os-io/c3os/edit/master/docs/content/upgrade/manual.md" target="blank">
+                      <i class="fas fa-code-branch"></i>
+                      <span id="top-github-link-text">Edit this page</span>
+                    </a>
+                  </div>
+                  
+                
                 
                 <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                     <span id="sidebar-toggle-span">
@@ -815,7 +826,13 @@
             
           
           
-            <a href='/'></a> > Tags
+            
+            
+          
+          
+            <a href='/'></a> > <a href='/upgrade/'>Upgrade</a> > Manual
+          
+        
           
         
           
@@ -826,7 +843,12 @@
                 
                     <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#list-available-versions">List available versions</a></li>
+    <li><a href="#upgrade">Upgrade</a></li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -842,24 +864,35 @@
           
             <h1>
               
-                tag ::
-              
-              Tags
+              Manual
             </h1>
           
 
         
 
 
+<p>Upgrades can be run manually from the terminal.</p>
+<p>c3os images are released on <a href="https://quay.io/repository/c3os/c3os">quay.io</a>.</p>
+<h2 id="list-available-versions">List available versions</h2>
+<p>To see all the available versions:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo c3os-agent upgrade list-releases
+v0.57.0
+v0.57.0-rc2
+v0.57.0-rc1
+v0.57.0-alpha2
+v0.57.0-alpha1
+</code></pre></div><h2 id="upgrade">Upgrade</h2>
+<p>To upgrade to latest available version, run from a shell of a cluster node:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo c3os-agent upgrade
+</code></pre></div><p>To specify a version, just run</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo c3os-agent upgrade &lt;version&gt;
+</code></pre></div><p>Use <code>--force</code> to force upgrading to avoid checking versions.</p>
+<p>It is possible altough to use the same commandset from <code>Elemental-toolkit</code>. So for example, the following works too:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo elemental upgrade --no-verify --docker-image quay.io/c3os/c3os:opensuse-v1.21.4-22
+</code></pre></div><p><a href="https://rancher.github.io/elemental-toolkit/docs/getting-started/upgrading/#upgrade-to-a-specific-container-image">See also the general Elemental-toolkit documentation</a> which applies for <code>c3os</code> as well.</p>
 
 
-
-<ul>
-	
-</ul>
-
-
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -1057,6 +1090,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1069,6 +1103,7 @@
             
             
                 
+                    
                     
                 
                 
@@ -1085,6 +1120,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1349,8 +1387,10 @@
 	 
 	 
 		
+			<a class="nav nav-prev" href="/upgrade/" title="Upgrade"> <i class="fa fa-chevron-left"></i></a>
 		
-			<a class="nav nav-next" href="/quickstart/" title="Quickstart" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+			<a class="nav nav-next" href="/upgrade/kubernetes/" title="Upgrading from Kubernetes" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1382,3 +1422,4 @@
 
   </body>
 </html>
+

@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Tags :: c3os documentation</title>
+    <title>Upgrading from Kubernetes :: c3os documentation</title>
 
     
     <link href="/css/nucleus.css?1663019226" rel="stylesheet">
@@ -37,7 +37,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/tags/">
+  <body class="" data-url="/upgrade/kubernetes/">
     <nav id="sidebar" class="">
 
 
@@ -319,7 +319,7 @@
   
     
     <li data-nav-id="/upgrade/" title="Upgrade" class="dd-item
-        
+        parent
         
         
         ">
@@ -366,7 +366,7 @@
  
   
     
-      <li data-nav-id="/upgrade/kubernetes/" title="Upgrading from Kubernetes" class="dd-item ">
+      <li data-nav-id="/upgrade/kubernetes/" title="Upgrading from Kubernetes" class="dd-item active">
         <a href="/upgrade/kubernetes/">
         <b>- </b>Upgrading from Kubernetes
         
@@ -795,6 +795,17 @@
               <div>
                 <div id="top-bar">
                 
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='Edit this page' href="https://github.com/c3os-io/c3os/edit/master/docs/content/upgrade/kubernetes.md" target="blank">
+                      <i class="fas fa-code-branch"></i>
+                      <span id="top-github-link-text">Edit this page</span>
+                    </a>
+                  </div>
+                  
+                
                 
                 <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                     <span id="sidebar-toggle-span">
@@ -815,7 +826,13 @@
             
           
           
-            <a href='/'></a> > Tags
+            
+            
+          
+          
+            <a href='/'></a> > <a href='/upgrade/'>Upgrade</a> > Upgrading from Kubernetes
+          
+        
           
         
           
@@ -826,7 +843,15 @@
                 
                     <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#upgrading-from-version-x-to-version-y-with-kubernetes">Upgrading from version X to version Y with Kubernetes</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -842,24 +867,62 @@
           
             <h1>
               
-                tag ::
-              
-              Tags
+              Upgrading from Kubernetes
             </h1>
           
 
         
 
 
+<p>c3OS upgrades can be driven either manually or via Kubernetes. In order to trigger upgrades it is required to apply a CRD to the target cluster for the upgrade.</p>
+<h3 id="upgrading-from-version-x-to-version-y-with-kubernetes">Upgrading from version X to version Y with Kubernetes</h3>
+<p>To upgrade a node it is necessary <a href="https://github.com/rancher/system-upgrade-controller">system-upgrade-controller</a> to be deployed in the target cluster.</p>
+<p>To install it, use kubectl:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl apply -f https://raw.githubusercontent.com/rancher/system-upgrade-controller/master/manifests/system-upgrade-controller.yaml
+</code></pre></div><p>To trigger an upgrade, create a plan for the <code>system-upgrade-controller</code> which refers to the image version that we want to upgrade.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat <span style="color:#e6db74">&lt;&lt;&#39;EOF&#39; | kubectl apply -f -
+</span><span style="color:#e6db74">---
+</span><span style="color:#e6db74">apiVersion: upgrade.cattle.io/v1
+</span><span style="color:#e6db74">kind: Plan
+</span><span style="color:#e6db74">metadata:
+</span><span style="color:#e6db74">  name: os-upgrade
+</span><span style="color:#e6db74">  namespace: system-upgrade
+</span><span style="color:#e6db74">  labels:
+</span><span style="color:#e6db74">    k3s-upgrade: server
+</span><span style="color:#e6db74">spec:
+</span><span style="color:#e6db74">  concurrency: 1
+</span><span style="color:#e6db74">  # This is the version (tag) of the image. 
+</span><span style="color:#e6db74">  # The version is refered to the c3os version plus the k3s version.
+</span><span style="color:#e6db74">  version: &#34;v0.57.0-k3sv1.23.9-k3s1&#34;
+</span><span style="color:#e6db74">  nodeSelector:
+</span><span style="color:#e6db74">    matchExpressions:
+</span><span style="color:#e6db74">      - {key: kubernetes.io/hostname, operator: Exists}
+</span><span style="color:#e6db74">  serviceAccountName: system-upgrade
+</span><span style="color:#e6db74">  cordon: false
+</span><span style="color:#e6db74">  drain:
+</span><span style="color:#e6db74">    force: false
+</span><span style="color:#e6db74">    disableEviction: true
+</span><span style="color:#e6db74">  upgrade:
+</span><span style="color:#e6db74">    # Here goes the image which is tied to the flavor being used.
+</span><span style="color:#e6db74">    # Currently can pick between opensuse and alpine
+</span><span style="color:#e6db74">    image: quay.io/c3os/c3os-opensuse
+</span><span style="color:#e6db74">    command:
+</span><span style="color:#e6db74">    - &#34;/usr/sbin/suc-upgrade&#34;
+</span><span style="color:#e6db74">EOF</span>
+</code></pre></div><p>To check all the available versions, see the <a href="https://quay.io/repository/c3os/c3os-opensuse?tab=tags">images</a> available on the container registry, corresponding to the flavor/version selected.</p>
+
+<div class="notices note" ><p>Several upgrade strategies can be used with <code>system-upgrade-controller</code> which are not illustrated here in this example. For instance it can be specified the number of hosts which are running the upgrades, filtering by labels, and more. <a href="https://github.com/rancher/system-upgrade-controller">Refer to the project documentation</a> on how to create efficient strategies to roll upgrades on the nodes. In the example above the upgrades are applied to every host of the cluster, one-by-one in sequence.</p>
+</div>
+
+<p>A pod should appear right after which carries on the upgrade and automatically reboots the node:</p>
+<pre tabindex="0"><code>$ kubectl get pods -A
+...
+system-upgrade   apply-os-upgrade-on-c3os-with-1a1a24bcf897bd275730bdd8548-h7ffd   0/1     Creating   0          40s
+</code></pre><p>Done! we should have all the basic to get our first cluster rolling, but there is much more we can do.</p>
+<p>Don&rsquo;t miss out how to create multi-machine clusters, or clusters using the p2p fully-meshed network.</p>
 
 
-
-<ul>
-	
-</ul>
-
-
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -1057,6 +1120,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1069,6 +1133,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1086,6 +1153,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1104,6 +1172,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1349,8 +1420,10 @@
 	 
 	 
 		
+			<a class="nav nav-prev" href="/upgrade/manual/" title="Manual"> <i class="fa fa-chevron-left"></i></a>
 		
-			<a class="nav nav-next" href="/quickstart/" title="Quickstart" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+			<a class="nav nav-next" href="/architecture/" title="Architecture" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1382,3 +1455,4 @@
 
   </body>
 </html>
+

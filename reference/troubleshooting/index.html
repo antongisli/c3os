@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Tags :: c3os documentation</title>
+    <title>Troubleshooting :: c3os documentation</title>
 
     
     <link href="/css/nucleus.css?1663019226" rel="stylesheet">
@@ -37,7 +37,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/tags/">
+  <body class="" data-url="/reference/troubleshooting/">
     <nav id="sidebar" class="">
 
 
@@ -589,7 +589,7 @@
   
     
     <li data-nav-id="/reference/" title="Reference" class="dd-item
-        
+        parent
         
         
         ">
@@ -657,7 +657,7 @@
  
   
     
-      <li data-nav-id="/reference/troubleshooting/" title="Troubleshooting" class="dd-item ">
+      <li data-nav-id="/reference/troubleshooting/" title="Troubleshooting" class="dd-item active">
         <a href="/reference/troubleshooting/">
         <b>- </b>Troubleshooting
         
@@ -795,6 +795,17 @@
               <div>
                 <div id="top-bar">
                 
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='Edit this page' href="https://github.com/c3os-io/c3os/edit/master/docs/content/reference/troubleshooting.md" target="blank">
+                      <i class="fas fa-code-branch"></i>
+                      <span id="top-github-link-text">Edit this page</span>
+                    </a>
+                  </div>
+                  
+                
                 
                 <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                     <span id="sidebar-toggle-span">
@@ -815,7 +826,13 @@
             
           
           
-            <a href='/'></a> > Tags
+            
+            
+          
+          
+            <a href='/'></a> > <a href='/reference/'>Reference</a> > Troubleshooting
+          
+        
           
         
           
@@ -826,7 +843,14 @@
                 
                     <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#root-permission">Root permission</a></li>
+    <li><a href="#get-kubeconfig">Get kubeconfig</a></li>
+    <li><a href="#connect-to-the-cluster-network">Connect to the cluster network</a></li>
+    <li><a href="#setup-process">Setup process</a></li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -842,24 +866,40 @@
           
             <h1>
               
-                tag ::
-              
-              Tags
+              Troubleshooting
             </h1>
           
 
         
 
 
+<h2 id="root-permission">Root permission</h2>
+<p>By default there is no root user set. A default user (<code>c3os</code>) is created and can use <code>sudo</code> without password authentication during LiveCD bootup.</p>
+<h2 id="get-kubeconfig">Get kubeconfig</h2>
+<p>On all nodes of the cluster it&rsquo;s possible to invoke <code>c3os get-kubeconfig</code> to recover the kubeconfig file</p>
+<h2 id="connect-to-the-cluster-network">Connect to the cluster network</h2>
+<p>Network tokens can be used to connect to the VPN created by the cluster. They are indeed tokens of <a href="https://github.com/mudler/edgevpn">edgevpn</a> networks, and thus can be used to connect to with its CLI.</p>
+<p>The <code>c3os</code> CLI can be used to connect as well, with the <code>bridge</code> command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo c3os bridge --network-token &lt;TOKEN&gt;
+</code></pre></div>
+<div class="notices note" ><p>The command needs root permissions as it sets up a local tun interface to connect to the VPN.</p>
+</div>
 
-
-
+<p>Afterward you can connect to <a href="http://localhost:8080">localhost:8080</a> to access the network API and verify machines are connected.</p>
+<p>See <a href="https://mudler.github.io/edgevpn/docs/getting-started/cli/">edgeVPN</a> documentation on how to connect to the VPN with the edgeVPN cli, which is similar:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">EDGEVPNTOKEN<span style="color:#f92672">=</span>&lt;network_token&gt; edgevpn --dhcp
+</code></pre></div><h2 id="setup-process">Setup process</h2>
+<p><code>c3os</code> node at first boot will start the <code>c3os-agent</code> service, you can always check what&rsquo;s happening by running <code>journalctl -fu c3os-agent</code>.</p>
+<p>This service will setup <code>k3s</code> and <code>edgevpn</code> dynamically on first-boot, once it configures the machine it does not run on boot anymore, unless <code>/usr/local/.c3os/deployed</code> is removed..</p>
+<p>Those are the steps executed in sequence by the <code>c3os-agent</code> service:</p>
 <ul>
-	
+<li>Will create a <code>edgevpn@c3os</code> service and enabled on start. The configuration for the connection is stored in <code>/etc/systemd/system.conf.d/edgevpn-c3os.env</code> and depends on the cloud-init configuration file provided during installation time</li>
+<li>Automatic role negotiation starts, nodes will co-ordinate for an IP and a role</li>
+<li>Once roles are defined a node will either set the <code>k3s</code> or <code>k3s-agent</code> service. Configuration for each service is stored in <code>/etc/sysconfig/k3s</code> and <code>/etc/sysconfig/k3s-agent</code> respectively</li>
 </ul>
 
 
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -1233,6 +1273,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1245,6 +1286,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1278,6 +1322,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1293,6 +1338,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1349,8 +1397,10 @@
 	 
 	 
 		
+			<a class="nav nav-prev" href="/reference/cli/" title="CLI"> <i class="fa fa-chevron-left"></i></a>
 		
-			<a class="nav nav-next" href="/quickstart/" title="Quickstart" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+			<a class="nav nav-next" href="/reference/configuration/" title="Configuration reference" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1382,3 +1432,4 @@
 
   </body>
 </html>
+

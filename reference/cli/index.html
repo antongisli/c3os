@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Tags :: c3os documentation</title>
+    <title>CLI :: c3os documentation</title>
 
     
     <link href="/css/nucleus.css?1663019226" rel="stylesheet">
@@ -37,7 +37,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/tags/">
+  <body class="" data-url="/reference/cli/">
     <nav id="sidebar" class="">
 
 
@@ -589,7 +589,7 @@
   
     
     <li data-nav-id="/reference/" title="Reference" class="dd-item
-        
+        parent
         
         
         ">
@@ -636,7 +636,7 @@
  
   
     
-      <li data-nav-id="/reference/cli/" title="CLI" class="dd-item ">
+      <li data-nav-id="/reference/cli/" title="CLI" class="dd-item active">
         <a href="/reference/cli/">
         <b>- </b>CLI
         
@@ -795,6 +795,17 @@
               <div>
                 <div id="top-bar">
                 
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='Edit this page' href="https://github.com/c3os-io/c3os/edit/master/docs/content/reference/cli.md" target="blank">
+                      <i class="fas fa-code-branch"></i>
+                      <span id="top-github-link-text">Edit this page</span>
+                    </a>
+                  </div>
+                  
+                
                 
                 <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                     <span id="sidebar-toggle-span">
@@ -815,7 +826,13 @@
             
           
           
-            <a href='/'></a> > Tags
+            
+            
+          
+          
+            <a href='/'></a> > <a href='/reference/'>Reference</a> > CLI
+          
+        
           
         
           
@@ -826,7 +843,21 @@
                 
                     <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#create-config"><code>create-config</code></a></li>
+    <li><a href="#generate-token"><code>generate-token</code></a></li>
+    <li><a href="#register"><code>register</code></a>
+      <ul>
+        <li><a href="#taking-a-screenshot">Taking a screenshot</a></li>
+        <li><a href="#providing-a-qrcode-imagescreenshot-manually">Providing a qrcode image/screenshot manually</a></li>
+      </ul>
+    </li>
+    <li><a href="#bridge"><code>bridge</code></a></li>
+    <li><a href="#install"><code>install</code></a></li>
+    <li><a href="#setup"><code>setup</code></a></li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -842,24 +873,116 @@
           
             <h1>
               
-                tag ::
-              
-              Tags
+              CLI
             </h1>
           
 
         
 
 
+<p>A CLI is provided as part of releases associated to each <code>c3os</code> version.</p>
+<p>The CLI can be used from an external machine to generate network tokens and pair nodes on first-boot.</p>
+<pre tabindex="0"><code>./c3os --help                                                         
+NAME:
+   c3os - c3os (register|install)
+
+USAGE:
+    [global options] command [command options] [arguments...]
+
+VERSION:
+   0.1
+
+DESCRIPTION:
+   c3os registers and installs c3os boxes
+
+AUTHOR:
+   Ettore Di Giacinto
+
+COMMANDS:
+   register           
+   create-config, c   
+   generate-token, g  
+   setup, s           
+   get-kubeconfig     
+   install, i         
+   help, h            Shows a list of commands or help for one command
+</code></pre><h2 id="create-config"><code>create-config</code></h2>
+<p>Generates a new <code>c3os</code> configuration file which can be used as cloud-init, with a new unique network token:</p>
+<pre tabindex="0"><code>$ ./c3os create-config  
+c3os:
+  network_token: b3RwOgogIGRodDoKICAgIGludGVydmFsOiA5MjIzMzcyMDM2ODU0Nzc1ODA3CiAgICBrZXk6IEVCMzJJMlNXTjJCNFBHNEtCWTNBUVBBS0FWRTY0Q0VLVUlDTktTUFVWVU5BWTM0QklEQ0EKICAgIGxlbmd0aDogMzIKICBjcnlwdG86CiAgICBpbnRlcnZhbDogOTIyMzM3MjAzNjg1NDc3NTgwNwogICAga2V5OiBDMk1RRk5DWEFVRElPWjVHM1pZUUIzVEVHTzVXVEdQR1pZSEVQQkY3SFEyVUROUlZCTkxRCiAgICBsZW5ndGg6IDMyCnJvb206IGp6Q29kQVVOWUZSUklQU3JISmx4d1BVUnVxTGJQQnh4CnJlbmRlenZvdXM6IG5NckRCbllyVVBMdnFPV0Z2dWZvTktXek1adEJIRmpzCm1kbnM6IGpQUUhIbVZza2x6V29xbWNkeVlnbVhMSVFjTE1HUFN6Cm1heF9tZXNzYWdlX3NpemU6IDIwOTcxNTIwCg==
+  offline: false
+  reboot: false
+  device: &quot;&quot;
+  poweroff: false
+</code></pre><p>Now you can use this in your configuration file to create new c3os nodes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">c3os</span>:
+  <span style="color:#f92672">network_token</span>: <span style="color:#ae81ff">b3RwOgogIGRodDoKICAgIGludGVydmFsOiA5MjIzMzcyMDM2ODU0Nzc1ODA3CiAgICBrZXk6IEVCMzJJMlNXTjJCNFBHNEtCWTNBUVBBS0FWRTY0Q0VLVUlDTktTUFVWVU5BWTM0QklEQ0EKICAgIGxlbmd0aDogMzIKICBjcnlwdG86CiAgICBpbnRlcnZhbDogOTIyMzM3MjAzNjg1NDc3NTgwNwogICAga2V5OiBDMk1RRk5DWEFVRElPWjVHM1pZUUIzVEVHTzVXVEdQR1pZSEVQQkY3SFEyVUROUlZCTkxRCiAgICBsZW5ndGg6IDMyCnJvb206IGp6Q29kQVVOWUZSUklQU3JISmx4d1BVUnVxTGJQQnh4CnJlbmRlenZvdXM6IG5NckRCbllyVVBMdnFPV0Z2dWZvTktXek1adEJIRmpzCm1kbnM6IGpQUUhIbVZza2x6V29xbWNkeVlnbVhMSVFjTE1HUFN6Cm1heF9tZXNzYWdlX3NpemU6IDIwOTcxNTIwCg==</span>
+  <span style="color:#f92672">offline</span>: <span style="color:#66d9ef">false</span>
+  <span style="color:#f92672">reboot</span>: <span style="color:#66d9ef">false</span>
+  <span style="color:#f92672">device</span>: <span style="color:#e6db74">&#34;&#34;</span>
+  <span style="color:#f92672">poweroff</span>: <span style="color:#66d9ef">false</span>
+
+<span style="color:#75715e"># Cloud init syntax to setup users. </span>
+<span style="color:#75715e"># See https://rancher.github.io/elemental-toolkit/docs/reference/cloud_init/</span>
+<span style="color:#f92672">stages</span>:
+   <span style="color:#f92672">network</span>:
+     - <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;Setup users&#34;</span>
+       <span style="color:#f92672">authorized_keys</span>:
+        <span style="color:#f92672">c3os</span>: 
+        - <span style="color:#ae81ff">github:yourhandle!</span>
+</code></pre></div><h2 id="generate-token"><code>generate-token</code></h2>
+<p>Generates a new network token which can be used in a configuration file:</p>
+<pre tabindex="0"><code>$ ./c3os generate-token
+b3RwOgogIGRodDoKICAgIGludGVydmFsOiA5MjIzMzcyMDM2ODU0Nzc1ODA3CiAgICBrZXk6IFhMMjRYUk1MTlFOQ1pJQTU0SVFLQ1laMk83SENQWEFBU1ZKN0tZSTQ3MzVaUkpKSktRSEEKICAgIGxlbmd0aDogMzIKICBjcnlwdG86CiAgICBpbnRlcnZhbDogOTIyMzM3MjAzNjg1NDc3NTgwNwogICAga2V5OiBMR1dMWFBTUllaU0ZERDdOT0pBNzdKV0ZWQjRHVkZBMjJIWlZPWU1VT0lNSFVYNFZXUURRCiAgICBsZW5ndGg6IDMyCnJvb206IFRtcUt5VnFHQ1ZZam9TRm9CTEVNRGVEdmJzelBkVEdoCnJlbmRlenZvdXM6IGttb3J4Q21sY2NjVVppWmdkSW5xTERvTGJtS3ZGdm9mCm1kbnM6IEZkWVdQc2R4aHdvWHZlb0VzSXNnVHRXbEJUbE9IVHJmCm1heF9tZXNzYWdlX3NpemU6IDIwOTcxNTIwCg==
+</code></pre><p>And now:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">c3os</span>:
+  <span style="color:#f92672">network_token</span>: <span style="color:#ae81ff">b3RwOgogIGRodDoKICAgIGludGVydmFsOiA5MjIzMzcyMDM2ODU0Nzc1ODA3CiAgICBrZXk6IFhMMjRYUk1MTlFOQ1pJQTU0SVFLQ1laMk83SENQWEFBU1ZKN0tZSTQ3MzVaUkpKSktRSEEKICAgIGxlbmd0aDogMzIKICBjcnlwdG86CiAgICBpbnRlcnZhbDogOTIyMzM3MjAzNjg1NDc3NTgwNwogICAga2V5OiBMR1dMWFBTUllaU0ZERDdOT0pBNzdKV0ZWQjRHVkZBMjJIWlZPWU1VT0lNSFVYNFZXUURRCiAgICBsZW5ndGg6IDMyCnJvb206IFRtcUt5VnFHQ1ZZam9TRm9CTEVNRGVEdmJzelBkVEdoCnJlbmRlenZvdXM6IGttb3J4Q21sY2NjVVppWmdkSW5xTERvTGJtS3ZGdm9mCm1kbnM6IEZkWVdQc2R4aHdvWHZlb0VzSXNnVHRXbEJUbE9IVHJmCm1heF9tZXNzYWdlX3NpemU6IDIwOTcxNTIwCg==</span>
+  <span style="color:#f92672">offline</span>: <span style="color:#66d9ef">false</span>
+  <span style="color:#f92672">reboot</span>: <span style="color:#66d9ef">false</span>
+  <span style="color:#f92672">device</span>: <span style="color:#e6db74">&#34;&#34;</span>
+  <span style="color:#f92672">poweroff</span>: <span style="color:#66d9ef">false</span>
+
+<span style="color:#75715e"># Cloud init syntax to setup users. </span>
+<span style="color:#75715e"># See https://rancher.github.io/elemental-toolkit/docs/reference/cloud_init/</span>
+<span style="color:#f92672">stages</span>:
+   <span style="color:#f92672">network</span>:
+     - <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;Setup users&#34;</span>
+       <span style="color:#f92672">authorized_keys</span>:
+        <span style="color:#f92672">c3os</span>: 
+        - <span style="color:#ae81ff">github:yourhandle!</span>
+</code></pre></div><h2 id="register"><code>register</code></h2>
+<p>The <strong>register</strong> command can be used to register and drive installation of nodes via QR code with a cloud-init config file ( with <code>--config</code>).</p>
+<pre tabindex="0"><code>NAME:
+    register - 
+
+USAGE:
+    register [command options] [arguments...]
+
+OPTIONS:
+   --config value  
+   --device value  
+   --reboot        
+   --poweroff
+</code></pre><p>When booting <code>c3os</code> via ISO, the boot process ends up in displaying a QR code which can be parsed by <code>c3os register</code> from another machine.</p>
+<h3 id="taking-a-screenshot">Taking a screenshot</h3>
+<p><code>register</code> by default takes a screenshot and tries to find a QR code in it:</p>
+<pre tabindex="0"><code>c3os register
+</code></pre><h3 id="providing-a-qrcode-imagescreenshot-manually">Providing a qrcode image/screenshot manually</h3>
+<p>It can be also be specified an image:</p>
+<pre tabindex="0"><code>c3os register &lt;file.png&gt;
+</code></pre><p>After the pairing is done, the node will start installation with the provided options.</p>
+<p>A <code>--device</code> and a <code>--config</code> file are required in order to have a functional installation.</p>
+<h2 id="bridge"><code>bridge</code></h2>
+<p>Connect to the nodes in the VPN p2p network by creating a tun device on the host.</p>
+<p>It needs a <code>--network-token</code>(<code>$NETWORK_TOKEN</code>) argument and exposes an API endpoint available at <a href="http://localhost:8080">localhost:8080</a> to monitor the network status.</p>
+<h2 id="install"><code>install</code></h2>
+<p>Called by c3os nodes on boot and not meant to be used manually. It kicks in the installation and the QR pairing process.</p>
+<h2 id="setup"><code>setup</code></h2>
+<p>Called by c3os nodes on boot and not meant to be used manually. It prepares <code>edgevpn</code> and <code>k3s</code> bootstrapping the node and the VPN.</p>
 
 
-
-<ul>
-	
-</ul>
-
-
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -1233,6 +1356,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1245,6 +1369,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1262,6 +1389,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1277,6 +1405,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1349,8 +1480,10 @@
 	 
 	 
 		
+			<a class="nav nav-prev" href="/reference/paths/" title="Paths"> <i class="fa fa-chevron-left"></i></a>
 		
-			<a class="nav nav-next" href="/quickstart/" title="Quickstart" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+			<a class="nav nav-next" href="/reference/troubleshooting/" title="Troubleshooting" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1382,3 +1515,4 @@
 
   </body>
 </html>
+

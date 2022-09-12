@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Tags :: c3os documentation</title>
+    <title>Immutable layout :: c3os documentation</title>
 
     
     <link href="/css/nucleus.css?1663019226" rel="stylesheet">
@@ -37,7 +37,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/tags/">
+  <body class="" data-url="/architecture/immutable/">
     <nav id="sidebar" class="">
 
 
@@ -395,7 +395,7 @@
   
     
     <li data-nav-id="/architecture/" title="Architecture" class="dd-item
-        
+        parent
         
         
         ">
@@ -442,7 +442,7 @@
  
   
     
-      <li data-nav-id="/architecture/immutable/" title="Immutable layout" class="dd-item ">
+      <li data-nav-id="/architecture/immutable/" title="Immutable layout" class="dd-item active">
         <a href="/architecture/immutable/">
         <b>- </b>Immutable layout
         
@@ -795,6 +795,17 @@
               <div>
                 <div id="top-bar">
                 
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='Edit this page' href="https://github.com/c3os-io/c3os/edit/master/docs/content/architecture/immutable.md" target="blank">
+                      <i class="fas fa-code-branch"></i>
+                      <span id="top-github-link-text">Edit this page</span>
+                    </a>
+                  </div>
+                  
+                
                 
                 <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                     <span id="sidebar-toggle-span">
@@ -815,7 +826,13 @@
             
           
           
-            <a href='/'></a> > Tags
+            
+            
+          
+          
+            <a href='/'></a> > <a href='/architecture/'>Architecture</a> > Immutable layout
+          
+        
           
         
           
@@ -826,7 +843,11 @@
                 
                     <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#benefits-of-using-an-immutable-system">Benefits of using an Immutable system</a></li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -842,24 +863,36 @@
           
             <h1>
               
-                tag ::
-              
-              Tags
+              Immutable layout
             </h1>
           
 
         
 
 
-
-
-
+<p>c3os adopts an Immutable layout, and derivatives created with its toolkit inherits the same immutability aspects.</p>
+<p>An immutable OS is a carefully engineered system which boots in a restricted, permissionless mode, where certain paths of the system are not writeable. For instance, after installation it&rsquo;s not possible to install additional packages in the system, and any configuration change is discarded after reboot.</p>
+<p>A running Linux based OS system will look like with the following paths:</p>
+<pre tabindex="0"><code>/usr/local - persistent ( partition label COS_PERSISTENT)
+/oem - persistent ( partition label COS_OEM)
+/etc - ephemeral
+/usr - read only
+/ immutable
+</code></pre><p><code>/usr/local</code> will contain all the persistent data which will be carried over in-between upgrades, instead, any change to <code>/etc</code> will be discarded.</p>
+<h2 id="benefits-of-using-an-immutable-system">Benefits of using an Immutable system</h2>
+<p>There are many reasons why you would like so, and this is a genuine, good question. There are various perspective you can see at this, from a security standpoint, it is far more secure than traditional systems - most of attack vectors relies on writing on the system, or either installing persistent tools after a vector has been exploited.</p>
+<p>From a maintenance perspective, configuration management tools like Chef, Puppet, or alikes are not needed as Immutable systems have only a configuration entrypoint, every other configuration is cleaned up automatically after a reboot.</p>
+<p>The benefit of rolling out the same system over a set of machines are obvious:</p>
 <ul>
-	
+<li>No snowflakes - all the machines ships the same image, configuration settings, and behavior. this allows to have a predictable infrastructure, predictable upgrades and homogeneus configurations across your cluster</li>
+<li>Configuration is driven via cloud-init. There is only one source of truth for configuration, and that does happen at bootstrap time. Anything else it&rsquo;s handled afterwards natively via Kubernetes, so no configuration management software is required.</li>
+<li>Reduced attack surface - Immutable systems cannot be modified or tampered on runtime. This enhances the security of a running OS as changes on the system are not allowed.</li>
 </ul>
+<p>Tools like Chef, Puppet and Ansible share the same underlying issues when it comes to configuration management: nodes can have different versions matrix of software and OS, which makes your set of nodes dishomogeneous and difficult to maintain and orchestrate from day 1 to day 2.</p>
+<p>c3os tackles the issue from another angle, as can turn <em>any</em> distribution to an “immutable” system, distributed as a standard container image, which gets provisioned to the devices as declared. This allows to treat OSes with the same repeatable portability as containers for apps, removing snowflakes in your cluster. Container registries can be used either internally or externally to the cluster to propagate upgrades with customized versions of the OS (kernel, packages, etc).</p>
 
 
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -1105,6 +1138,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1117,6 +1151,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1134,6 +1171,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1149,6 +1187,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1349,8 +1390,10 @@
 	 
 	 
 		
+			<a class="nav nav-prev" href="/architecture/container/" title="Container based OS"> <i class="fa fa-chevron-left"></i></a>
 		
-			<a class="nav nav-next" href="/quickstart/" title="Quickstart" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+			<a class="nav nav-next" href="/architecture/meta/" title="Meta-Distribution" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1382,3 +1425,4 @@
 
   </body>
 </html>
+

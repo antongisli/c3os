@@ -1,21 +1,34 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Installation on c3os documentation</title>
+    <title>Installation reference on c3os documentation</title>
     <link>https://docs.c3os.io/installation/</link>
-    <description>Recent content in Installation on c3os documentation</description>
+    <description>Recent content in Installation reference on c3os documentation</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 09 Feb 2022 17:56:26 +0100</lastBuildDate><atom:link href="https://docs.c3os.io/installation/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Device Pairing</title>
-      <link>https://docs.c3os.io/installation/device_pairing/</link>
+      <title>Manual installation</title>
+      <link>https://docs.c3os.io/installation/manual/</link>
       <pubDate>Wed, 09 Feb 2022 17:56:26 +0100</pubDate>
       
-      <guid>https://docs.c3os.io/installation/device_pairing/</guid>
-      <description>For pairing a c3os node, you will use the c3os CLI which is downloadable as part of the releases from another machine, it will be used to pair and install a new node or join a node to an existing cluster.
-Start the c3os ISO Download and mount the ISO in either baremetal or a VM that you wish to use as a node for your cluster.
-It doesn&amp;rsquo;t matter if you are joining a node to an existing cluster or creating a new one, the procedure is still the same.</description>
+      <guid>https://docs.c3os.io/installation/manual/</guid>
+      <description>To install manually, follow the quickstart. When the QR code is prompted at the screen, you should be able to login via SSH to the box with the password c3os as c3os user.
+Note, after the installation the password login is disabled, users and ssh keys to login must be configured via cloud-init.
+ Installation To start the installation, run from the console:
+sudo elemental install --device /dev/sda --cloud-init $CONFIG Where the config can be a cloud-init file or a URL to it:</description>
+    </item>
+    
+    <item>
+      <title>Interactive installation</title>
+      <link>https://docs.c3os.io/installation/interactive/</link>
+      <pubDate>Wed, 09 Feb 2022 17:56:26 +0100</pubDate>
+      
+      <guid>https://docs.c3os.io/installation/interactive/</guid>
+      <description>The interactive installation can be accessed from the LiveCD and guides the user into the installation process.
+It generates a configuration file, which is later accessible after installation at /oem/99_custom.yaml.
+From the boot menu When loading any c3os ISOs, a GRUB menu like the following will be displayed. To access the interactive installation, select the third entry (c3os (interactive install)).
+Manually The interactive installer can be also started manually with c3os-agent interactive-install from the LiveCD.</description>
     </item>
     
     <item>
@@ -24,55 +37,19 @@ It doesn&amp;rsquo;t matter if you are joining a node to an existing cluster or 
       <pubDate>Wed, 09 Feb 2022 17:56:26 +0100</pubDate>
       
       <guid>https://docs.c3os.io/installation/automated/</guid>
-      <description>Automated installation is available as well aside of manual pairing.
-A cloud-init of the following form can be supplied as a datasource (CDROM, cos.setup bootarg):
-#cloud-config install: device: &amp;#34;/dev/sda&amp;#34; reboot: true poweroff: true auto: true # Required, for automated installations c3os: network_token: .... # extra configuration which will drive the installation automatically on first boot.
-The installer will kick in automatically and reboot/poweroff if specified. Note, to trigger the automatic installation the offline field must be enabled.</description>
+      <description>It is possible to drive the installation automatically by configuring a specific portion of the configuration file (install). The configuration file can be supplied then in various way, by either creating an additional ISO to mount ( if a VM, or burn to USB stick if baremetal), specifying a config via URL or even create a ISO from a container image with an embedded config file, which we are going to explore here.</description>
     </item>
     
     <item>
-      <title>Interactive installation</title>
-      <link>https://docs.c3os.io/installation/interactive_install/</link>
+      <title>Full P2P mesh support</title>
+      <link>https://docs.c3os.io/installation/p2p/</link>
       <pubDate>Wed, 09 Feb 2022 17:56:26 +0100</pubDate>
       
-      <guid>https://docs.c3os.io/installation/interactive_install/</guid>
-      <description>Start the c3os ISO Download and mount the ISO in either baremetal or a VM that you wish to use as a node for your cluster.
-It doesn&amp;rsquo;t matter if you are joining a node to an existing cluster or creating a new one, the procedure is still the same.
-A GRUB menu will be displayed:
-Select the third entry (c3os (interactive install)).
-A boot splash screen will appear, and right after a prompt, asking for installation settings: After entering all the details, the installation will start, returning finally at the shell.</description>
-    </item>
-    
-    <item>
-      <title>Manual installation</title>
-      <link>https://docs.c3os.io/installation/manual/</link>
-      <pubDate>Wed, 09 Feb 2022 17:56:26 +0100</pubDate>
-      
-      <guid>https://docs.c3os.io/installation/manual/</guid>
-      <description>Manual installation is available as well aside of pairing and automated installation.
-Default credentials If needed to connect over ssh, the system have an hardcoded username/password when booting from the LiveCD:
-user: c3os pass: c3os  Note, after the installation the password login is disabled, so users and ssh keys to login must be configured via cloud-init.
- Login over SSH as the c3os user or via console with c3os:c3os and run:</description>
-    </item>
-    
-    <item>
-      <title>Configuration reference</title>
-      <link>https://docs.c3os.io/installation/configuration/</link>
-      <pubDate>Wed, 09 Feb 2022 17:56:26 +0100</pubDate>
-      
-      <guid>https://docs.c3os.io/installation/configuration/</guid>
-      <description>A c3os node during pairing or either automated install can be configured via a single configuration file.
-#cloud-config c3os: network_token: &amp;#34;....&amp;#34; # Manually set node role. Available: master, worker. Defaults auto (none) role: &amp;#34;master&amp;#34; # User defined network-id. Can be used to have multiple clusters in the same network network_id: &amp;#34;dev&amp;#34; # Enable embedded DNS See also: https://mudler.github.io/edgevpn/docs/concepts/overview/dns/ dns: true install: # Device for automated installs device: &amp;#34;/dev/sda&amp;#34; # Reboot after installation reboot: true # Power off after installation poweroff: true # Set to true when installing without Pairing auto: true vpn: # EdgeVPN environment options DHCP: &amp;#34;true&amp;#34; # Disable DHT (for airgap) EDGEVPNDHT: &amp;#34;false&amp;#34; EDGEVPNMAXCONNS: &amp;#34;200&amp;#34; # If DHCP is false, it&amp;#39;s required to be given a specific node IP.</description>
-    </item>
-    
-    <item>
-      <title>Take over installation</title>
-      <link>https://docs.c3os.io/installation/takeover/</link>
-      <pubDate>Wed, 09 Feb 2022 17:56:26 +0100</pubDate>
-      
-      <guid>https://docs.c3os.io/installation/takeover/</guid>
-      <description>c3os supports takeover installations, see also the Elemental-toolkit docs here are few summarized steps:
- From the Dedicated control panel (OVH, Hetzner, etc.), boot in rescue mode install docker and run for example:  export DEVICE=/dev/sda export IMAGE=quay.io/mudler/c3os:v1.21.4-19 # A url pointing to a valid cloud-init config file. E.g. as a gist at gists.github.com export CONFIG_FILE=... docker run --privileged -v $DEVICE:$DEVICE -ti $IMAGE cos-installer --config $CONFIG_FILE --no-cosign --no-verify --docker-image $IMAGE $DEVICE  Switch back to booting from HD and reboot  </description>
+      <guid>https://docs.c3os.io/installation/p2p/</guid>
+      <description>This feature is crazy and experimental!
+ This section will guide on how to leverage the p2p full-mesh capabilities of c3os.
+c3OS supports p2p full-mesh out of the box. That allows to seamelessly interconnect clusters and nodes from different regions into an unified overlay network, additionally, the same network is used for co-ordinating nodes automatically, allowing self-automated node bootstrap.
+A hybrid network is automatically set up between all the nodes, as such there is no need to expose them over the Internet, and either expose the Kubernetes management API outside, reducing attacker&amp;rsquo;s exploiting surface.</description>
     </item>
     
     <item>
@@ -87,15 +64,23 @@ Flash the image into a SD card with dd or Etcher and place your cloud-init confi
     </item>
     
     <item>
-      <title>Examples</title>
-      <link>https://docs.c3os.io/installation/examples/</link>
+      <title>Take over installation</title>
+      <link>https://docs.c3os.io/installation/takeover/</link>
       <pubDate>Wed, 09 Feb 2022 17:56:26 +0100</pubDate>
       
-      <guid>https://docs.c3os.io/installation/examples/</guid>
-      <description>In the following section you can find example configuration files to achieve specific c3os setups.
-Single node cluster By default c3os requires multiple nodes. As for the c3os decentralized nature, it requires co-ordination between at least 2 nodes to achieve consensus on IPs, network setting, etc.
-In order to create single-node cluster, we need to force both the role and the ip by disabling DHCP:
-c3os: network_token: &amp;#34;....&amp;#34; role: &amp;#34;master&amp;#34; vpn: # EdgeVPN environment options DHCP: &amp;#34;false&amp;#34; ADDRESS: &amp;#34;10.</description>
+      <guid>https://docs.c3os.io/installation/takeover/</guid>
+      <description>c3os supports takeover installations, see also the Elemental-toolkit docs here are few summarized steps:
+ From the Dedicated control panel (OVH, Hetzner, etc.), boot in rescue mode install docker and run for example:  export DEVICE=/dev/sda export IMAGE=quay.io/mudler/c3os:v1.21.4-19 # A url pointing to a valid cloud-init config file. E.g. as a gist at gists.github.com export CONFIG_FILE=... docker run --privileged -v $DEVICE:$DEVICE -ti $IMAGE cos-installer --config $CONFIG_FILE --no-cosign --no-verify --docker-image $IMAGE $DEVICE  Switch back to booting from HD and reboot  </description>
+    </item>
+    
+    <item>
+      <title>Netboot installation</title>
+      <link>https://docs.c3os.io/installation/netboot/</link>
+      <pubDate>Wed, 09 Feb 2022 17:56:26 +0100</pubDate>
+      
+      <guid>https://docs.c3os.io/installation/netboot/</guid>
+      <description> This section is a work in progress!
+ </description>
     </item>
     
   </channel>

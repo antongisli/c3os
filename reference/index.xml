@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Reference on c3os documentation</title>
+    <link>https://docs.c3os.io/reference/</link>
+    <description>Recent content in Reference on c3os documentation</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 09 Feb 2022 17:56:26 +0100</lastBuildDate><atom:link href="https://docs.c3os.io/reference/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Paths</title>
+      <link>https://docs.c3os.io/reference/paths/</link>
+      <pubDate>Wed, 09 Feb 2022 17:56:26 +0100</pubDate>
+      
+      <guid>https://docs.c3os.io/reference/paths/</guid>
+      <description>The following paths are relevant for c3os:
+   Path Description     /usr/local/.c3os/deployed Sentinel file written after bootstrapping is complete. Remove to retrigger automatic bootstrap   /usr/local/.c3os/lease IP Lease of the node in the network. Delete to change IP address of the node    </description>
+    </item>
+    
+    <item>
+      <title>CLI</title>
+      <link>https://docs.c3os.io/reference/cli/</link>
+      <pubDate>Wed, 09 Feb 2022 17:56:26 +0100</pubDate>
+      
+      <guid>https://docs.c3os.io/reference/cli/</guid>
+      <description>A CLI is provided as part of releases associated to each c3os version.
+The CLI can be used from an external machine to generate network tokens and pair nodes on first-boot.
+./c3os --help NAME: c3os - c3os (register|install) USAGE: [global options] command [command options] [arguments...] VERSION: 0.1 DESCRIPTION: c3os registers and installs c3os boxes AUTHOR: Ettore Di Giacinto COMMANDS: register create-config, c generate-token, g setup, s get-kubeconfig install, i help, h Shows a list of commands or help for one command create-config Generates a new c3os configuration file which can be used as cloud-init, with a new unique network token:</description>
+    </item>
+    
+    <item>
+      <title>Troubleshooting</title>
+      <link>https://docs.c3os.io/reference/troubleshooting/</link>
+      <pubDate>Wed, 09 Feb 2022 17:56:26 +0100</pubDate>
+      
+      <guid>https://docs.c3os.io/reference/troubleshooting/</guid>
+      <description>Root permission By default there is no root user set. A default user (c3os) is created and can use sudo without password authentication during LiveCD bootup.
+Get kubeconfig On all nodes of the cluster it&amp;rsquo;s possible to invoke c3os get-kubeconfig to recover the kubeconfig file
+Connect to the cluster network Network tokens can be used to connect to the VPN created by the cluster. They are indeed tokens of edgevpn networks, and thus can be used to connect to with its CLI.</description>
+    </item>
+    
+    <item>
+      <title>Configuration reference</title>
+      <link>https://docs.c3os.io/reference/configuration/</link>
+      <pubDate>Wed, 09 Feb 2022 17:56:26 +0100</pubDate>
+      
+      <guid>https://docs.c3os.io/reference/configuration/</guid>
+      <description>Here you can find a full reference of the fields available to configure a c3os node
+#node-config # The c3os block enables the p2p full-mesh functionalities. # To disable, don&amp;#39;t specify one. c3os: # This is a network token used to establish the p2p full meshed network. # Don&amp;#39;t specify one to disable full-mesh functionalities. network_token: &amp;#34;....&amp;#34; # Manually set node role. Available: master, worker. Defaults auto (none). This is available  role: &amp;#34;master&amp;#34; # User defined network-id.</description>
+    </item>
+    
+    <item>
+      <title>Remote Recovery mode</title>
+      <link>https://docs.c3os.io/reference/recovery_mode/</link>
+      <pubDate>Wed, 09 Feb 2022 17:56:26 +0100</pubDate>
+      
+      <guid>https://docs.c3os.io/reference/recovery_mode/</guid>
+      <description>The c3os recovery mode can be used to recover a damaged system, or to regain access remotely (with assistance) to a machine which has been lost access to. The recovery mode is accessible only from the GRUB menu, from both the LiveCD and an installed system.
+On installed system there are two recovery modes available during boot. Below it is described only how the c3os remote recovery works. The manual recovery entry has nothing special from the standard Elemental-toolkit recovery mode.</description>
+    </item>
+    
+    <item>
+      <title>Customizing the system image</title>
+      <link>https://docs.c3os.io/reference/customizing/</link>
+      <pubDate>Wed, 09 Feb 2022 17:56:26 +0100</pubDate>
+      
+      <guid>https://docs.c3os.io/reference/customizing/</guid>
+      <description>c3os is a container-based OS, if you want to change c3os and add a package it is required to build only a docker image.
+For example:
+FROMquay.io/c3os/c3os:opensuse-latestRUN zypper in -y ...RUN export VERSION=&amp;#34;my-version&amp;#34;RUN envsubst &amp;#39;${VERSION}&amp;#39; &amp;lt;/etc/os-releaseThe image can be then used with c3os upgrade or with system-upgrade-controller for upgrades within Kubernetes.</description>
+    </item>
+    
+  </channel>
+</rss>

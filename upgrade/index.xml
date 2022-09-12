@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Upgrade on c3os documentation</title>
+    <link>https://docs.c3os.io/upgrade/</link>
+    <description>Recent content in Upgrade on c3os documentation</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 09 Feb 2022 17:56:26 +0100</lastBuildDate><atom:link href="https://docs.c3os.io/upgrade/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Manual</title>
+      <link>https://docs.c3os.io/upgrade/manual/</link>
+      <pubDate>Wed, 09 Feb 2022 17:56:26 +0100</pubDate>
+      
+      <guid>https://docs.c3os.io/upgrade/manual/</guid>
+      <description>Upgrades can be run manually from the terminal.
+c3os images are released on quay.io.
+List available versions To see all the available versions:
+$ sudo c3os-agent upgrade list-releases v0.57.0 v0.57.0-rc2 v0.57.0-rc1 v0.57.0-alpha2 v0.57.0-alpha1 Upgrade To upgrade to latest available version, run from a shell of a cluster node:
+sudo c3os-agent upgrade To specify a version, just run
+sudo c3os-agent upgrade &amp;lt;version&amp;gt; Use --force to force upgrading to avoid checking versions.</description>
+    </item>
+    
+    <item>
+      <title>Upgrading from Kubernetes</title>
+      <link>https://docs.c3os.io/upgrade/kubernetes/</link>
+      <pubDate>Wed, 09 Feb 2022 17:56:26 +0100</pubDate>
+      
+      <guid>https://docs.c3os.io/upgrade/kubernetes/</guid>
+      <description>c3OS upgrades can be driven either manually or via Kubernetes. In order to trigger upgrades it is required to apply a CRD to the target cluster for the upgrade.
+Upgrading from version X to version Y with Kubernetes To upgrade a node it is necessary system-upgrade-controller to be deployed in the target cluster.
+To install it, use kubectl:
+kubectl apply -f https://raw.githubusercontent.com/rancher/system-upgrade-controller/master/manifests/system-upgrade-controller.yaml To trigger an upgrade, create a plan for the system-upgrade-controller which refers to the image version that we want to upgrade.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Tags :: c3os documentation</title>
+    <title>Remote Recovery mode :: c3os documentation</title>
 
     
     <link href="/css/nucleus.css?1663019226" rel="stylesheet">
@@ -37,7 +37,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/tags/">
+  <body class="" data-url="/reference/recovery_mode/">
     <nav id="sidebar" class="">
 
 
@@ -589,7 +589,7 @@
   
     
     <li data-nav-id="/reference/" title="Reference" class="dd-item
-        
+        parent
         
         
         ">
@@ -699,7 +699,7 @@
  
   
     
-      <li data-nav-id="/reference/recovery_mode/" title="Remote Recovery mode" class="dd-item ">
+      <li data-nav-id="/reference/recovery_mode/" title="Remote Recovery mode" class="dd-item active">
         <a href="/reference/recovery_mode/">
         <b>- </b>Remote Recovery mode
         
@@ -795,6 +795,17 @@
               <div>
                 <div id="top-bar">
                 
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='Edit this page' href="https://github.com/c3os-io/c3os/edit/master/docs/content/reference/recovery_mode.md" target="blank">
+                      <i class="fas fa-code-branch"></i>
+                      <span id="top-github-link-text">Edit this page</span>
+                    </a>
+                  </div>
+                  
+                
                 
                 <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                     <span id="sidebar-toggle-span">
@@ -815,7 +826,13 @@
             
           
           
-            <a href='/'></a> > Tags
+            
+            
+          
+          
+            <a href='/'></a> > <a href='/reference/'>Reference</a> > Remote Recovery mode
+          
+        
           
         
           
@@ -826,7 +843,12 @@
                 
                     <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#boot-into-recovery-mode">Boot into recovery mode</a></li>
+    <li><a href="#connect-to-the-machine">Connect to the machine</a></li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -842,24 +864,46 @@
           
             <h1>
               
-                tag ::
-              
-              Tags
+              Remote Recovery mode
             </h1>
           
 
         
 
 
+<p>The c3os recovery mode can be used to recover a damaged system, or to regain access remotely (with assistance) to a machine which has been lost access to. The recovery mode is accessible only from the GRUB menu, from both the LiveCD and an installed system.</p>
+
+<div class="notices note" ><p>On installed system there are two recovery modes available during boot. Below it is described only how the c3os remote recovery works. The manual recovery entry has nothing special from the standard Elemental-toolkit recovery mode. It can be used to reset the A/B partitions (with the user/pass used during setup) and perform any other operation without remote access.</p>
+</div>
+
+<h2 id="boot-into-recovery-mode">Boot into recovery mode</h2>
+<p>c3os recovery mode can be accessed either via ISO or from an installed system.</p>
+<p>A GRUB menu will be displayed:
+<img src="https://user-images.githubusercontent.com/2420543/165800177-3e4cccd8-f67c-43a2-bd88-329478539400.png" alt="Screenshot from 2022-04-28 17-48-06"></p>
+<p>Select the last entry <code>c3os (remote recovery mode)</code> and press enter.</p>
+<p>At this point the boot process starts and you should be welcomed by the <code>c3os</code> screen:</p>
+<p><img src="https://user-images.githubusercontent.com/2420543/165800182-9aa29c90-09e9-4c53-b3c7-c8ced262e3ac.png" alt="Screenshot from 2022-04-28 17-48-32"></p>
+<p>After few second the recovery process starts, and right after a QR code will be printed out of the screen along with a password which can be used later on to SSH into the machine:</p>
+<p><img src="https://user-images.githubusercontent.com/2420543/165800187-4d2fe04e-c501-4ad8-a29f-32a0110eaa72.png" alt="Screenshot from 2022-04-28 17-48-43"></p>
+<p>At this stage, take a screenshot or a photo, just save the image with the QR code.</p>
+<h2 id="connect-to-the-machine">Connect to the machine</h2>
+<p>In another machine you are using to connect to your server (your workstation, a jumpbox, or ..) use the <code>c3os</code> CLI to connect over the remote machine:</p>
+<pre tabindex="0"><code>$ ./c3os bridge --qr-code-image /path/to/image.png
+ INFO   Connecting to service kAIsuqiwKR
+ INFO   SSH access password is yTXlkak
+ INFO   SSH server reachable at 127.0.0.1:2200
+ INFO   To connect, keep this terminal open and run in another terminal 'ssh 127.0.0.1 -p 2200' the password is  yTXlkak
+ INFO   Note: the connection might not be available instantly and first attempts will likely fail.
+ INFO         Few attempts might be required before establishing a tunnel to the host.
+ INFO   Starting EdgeVPN network
+ INFO   Node ID: 12D3KooWSTRBCTNGZ61wzK5tgYvFi8rQVxkXJCDUYngBWGDSyoBK
+ INFO   Node Addresses: [/ip4/192.168.1.233/tcp/36071 /ip4/127.0.0.1/tcp/36071 /ip6/::1/tcp/37661]
+ INFO   Bootstrapping DHT
+</code></pre><p>At this point the bridge should start, and you should be able to see connection messages in the terminal. You can connect to the remote machine by using <code>ssh</code> and pointing it locally at <code>127.0.0.1:2200</code>. The username is not relevant, the password is print from the CLI.</p>
+<p>The bridge operates in the foreground, so you have to kill by hitting CTRL-C.</p>
 
 
-
-<ul>
-	
-</ul>
-
-
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -1233,6 +1277,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1245,6 +1290,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1310,6 +1358,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1325,6 +1374,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1349,8 +1401,10 @@
 	 
 	 
 		
+			<a class="nav nav-prev" href="/reference/configuration/" title="Configuration reference"> <i class="fa fa-chevron-left"></i></a>
 		
-			<a class="nav nav-next" href="/quickstart/" title="Quickstart" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+			<a class="nav nav-next" href="/reference/customizing/" title="Customizing the system image" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1382,3 +1436,4 @@
 
   </body>
 </html>
+

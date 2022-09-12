@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Tags :: c3os documentation</title>
+    <title>P2P Network :: c3os documentation</title>
 
     
     <link href="/css/nucleus.css?1663019226" rel="stylesheet">
@@ -37,7 +37,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/tags/">
+  <body class="" data-url="/architecture/network/">
     <nav id="sidebar" class="">
 
 
@@ -395,7 +395,7 @@
   
     
     <li data-nav-id="/architecture/" title="Architecture" class="dd-item
-        
+        parent
         
         
         ">
@@ -484,7 +484,7 @@
  
   
     
-      <li data-nav-id="/architecture/network/" title="P2P Network" class="dd-item ">
+      <li data-nav-id="/architecture/network/" title="P2P Network" class="dd-item active">
         <a href="/architecture/network/">
         <b>- </b>P2P Network
         
@@ -795,6 +795,17 @@
               <div>
                 <div id="top-bar">
                 
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='Edit this page' href="https://github.com/c3os-io/c3os/edit/master/docs/content/architecture/network.md" target="blank">
+                      <i class="fas fa-code-branch"></i>
+                      <span id="top-github-link-text">Edit this page</span>
+                    </a>
+                  </div>
+                  
+                
                 
                 <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                     <span id="sidebar-toggle-span">
@@ -815,7 +826,13 @@
             
           
           
-            <a href='/'></a> > Tags
+            
+            
+          
+          
+            <a href='/'></a> > <a href='/architecture/'>Architecture</a> > P2P Network
+          
+        
           
         
           
@@ -826,7 +843,7 @@
                 
                     <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents"></nav>
     </div>
 </div>
 
@@ -842,24 +859,24 @@
           
             <h1>
               
-                tag ::
-              
-              Tags
+              P2P Network
             </h1>
           
 
         
 
 
-
-
-
+<p>c3OS can automatically setup a VPN between the nodes using <a href="https://github.com/mudler/edgevpn">edgevpn</a>. This also allows the nodes to automatically  coordinate, discover/configure and establish a network overlay spanning across multiple regions.</p>
+<p>The connection happens in 3 stages, where the discovery is driven by DHT and mDNS (which can be selectively disabled/enabled)</p>
 <ul>
-	
+<li>Discovery</li>
+<li>Gossip network</li>
+<li>Full connectivity</li>
 </ul>
+<p><img src="https://mudler.github.io/edgevpn/docs/concepts/architecture/edevpn_bootstrap_hu8e61a09dccbf3a67bf1fc604ae4924fd_64246_1200x550_fit_catmullrom_3.png" alt=""></p>
 
 
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -1105,6 +1122,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1117,6 +1135,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1166,6 +1187,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1184,6 +1206,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1349,8 +1374,10 @@
 	 
 	 
 		
+			<a class="nav nav-prev" href="/architecture/meta/" title="Meta-Distribution"> <i class="fa fa-chevron-left"></i></a>
 		
-			<a class="nav nav-next" href="/quickstart/" title="Quickstart" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+			<a class="nav nav-next" href="/examples/" title="Examples" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1382,3 +1409,4 @@
 
   </body>
 </html>
+

@@ -2,64 +2,88 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://docs.c3os.io/basics/architecture/</loc>
+    <loc>https://docs.c3os.io/architecture/container/</loc>
     <lastmod>2022-02-09T17:56:26+01:00</lastmod>
   </url><url>
-    <loc>https://docs.c3os.io/basics/</loc>
+    <loc>https://docs.c3os.io/architecture/immutable/</loc>
     <lastmod>2022-02-09T17:56:26+01:00</lastmod>
   </url><url>
-    <loc>https://docs.c3os.io/installation/device_pairing/</loc>
+    <loc>https://docs.c3os.io/quickstart/installation/</loc>
     <lastmod>2022-02-09T17:56:26+01:00</lastmod>
   </url><url>
-    <loc>https://docs.c3os.io/after_install/upgrades/</loc>
-    <lastmod>2022-02-09T17:56:26+01:00</lastmod>
-  </url><url>
-    <loc>https://docs.c3os.io/installation/automated/</loc>
-    <lastmod>2022-02-09T17:56:26+01:00</lastmod>
-  </url><url>
-    <loc>https://docs.c3os.io/installation/</loc>
-    <lastmod>2022-02-09T17:56:26+01:00</lastmod>
-  </url><url>
-    <loc>https://docs.c3os.io/installation/interactive_install/</loc>
-    <lastmod>2022-02-09T17:56:26+01:00</lastmod>
-  </url><url>
-    <loc>https://docs.c3os.io/basics/layout/</loc>
-    <lastmod>2022-02-09T17:56:26+01:00</lastmod>
-  </url><url>
-    <loc>https://docs.c3os.io/after_install/paths/</loc>
-    <lastmod>2022-02-09T17:56:26+01:00</lastmod>
-  </url><url>
-    <loc>https://docs.c3os.io/after_install/</loc>
-    <lastmod>2022-02-09T17:56:26+01:00</lastmod>
-  </url><url>
-    <loc>https://docs.c3os.io/basics/cli/</loc>
+    <loc>https://docs.c3os.io/upgrade/manual/</loc>
     <lastmod>2022-02-09T17:56:26+01:00</lastmod>
   </url><url>
     <loc>https://docs.c3os.io/installation/manual/</loc>
     <lastmod>2022-02-09T17:56:26+01:00</lastmod>
   </url><url>
-    <loc>https://docs.c3os.io/after_install/troubleshooting/</loc>
+    <loc>https://docs.c3os.io/architecture/meta/</loc>
     <lastmod>2022-02-09T17:56:26+01:00</lastmod>
   </url><url>
-    <loc>https://docs.c3os.io/installation/configuration/</loc>
+    <loc>https://docs.c3os.io/architecture/network/</loc>
     <lastmod>2022-02-09T17:56:26+01:00</lastmod>
   </url><url>
-    <loc>https://docs.c3os.io/after_install/recovery_mode/</loc>
+    <loc>https://docs.c3os.io/quickstart/</loc>
     <lastmod>2022-02-09T17:56:26+01:00</lastmod>
   </url><url>
-    <loc>https://docs.c3os.io/installation/takeover/</loc>
+    <loc>https://docs.c3os.io/upgrade/kubernetes/</loc>
     <lastmod>2022-02-09T17:56:26+01:00</lastmod>
   </url><url>
-    <loc>https://docs.c3os.io/after_install/customizing/</loc>
+    <loc>https://docs.c3os.io/installation/</loc>
+    <lastmod>2022-02-09T17:56:26+01:00</lastmod>
+  </url><url>
+    <loc>https://docs.c3os.io/installation/interactive/</loc>
+    <lastmod>2022-02-09T17:56:26+01:00</lastmod>
+  </url><url>
+    <loc>https://docs.c3os.io/reference/paths/</loc>
+    <lastmod>2022-02-09T17:56:26+01:00</lastmod>
+  </url><url>
+    <loc>https://docs.c3os.io/installation/automated/</loc>
+    <lastmod>2022-02-09T17:56:26+01:00</lastmod>
+  </url><url>
+    <loc>https://docs.c3os.io/reference/cli/</loc>
+    <lastmod>2022-02-09T17:56:26+01:00</lastmod>
+  </url><url>
+    <loc>https://docs.c3os.io/reference/troubleshooting/</loc>
+    <lastmod>2022-02-09T17:56:26+01:00</lastmod>
+  </url><url>
+    <loc>https://docs.c3os.io/upgrade/</loc>
+    <lastmod>2022-02-09T17:56:26+01:00</lastmod>
+  </url><url>
+    <loc>https://docs.c3os.io/architecture/</loc>
+    <lastmod>2022-02-09T17:56:26+01:00</lastmod>
+  </url><url>
+    <loc>https://docs.c3os.io/reference/configuration/</loc>
+    <lastmod>2022-02-09T17:56:26+01:00</lastmod>
+  </url><url>
+    <loc>https://docs.c3os.io/installation/p2p/</loc>
+    <lastmod>2022-02-09T17:56:26+01:00</lastmod>
+  </url><url>
+    <loc>https://docs.c3os.io/reference/recovery_mode/</loc>
+    <lastmod>2022-02-09T17:56:26+01:00</lastmod>
+  </url><url>
+    <loc>https://docs.c3os.io/reference/customizing/</loc>
+    <lastmod>2022-02-09T17:56:26+01:00</lastmod>
+  </url><url>
+    <loc>https://docs.c3os.io/examples/</loc>
     <lastmod>2022-02-09T17:56:26+01:00</lastmod>
   </url><url>
     <loc>https://docs.c3os.io/installation/raspberry/</loc>
     <lastmod>2022-02-09T17:56:26+01:00</lastmod>
   </url><url>
-    <loc>https://docs.c3os.io/after_install/configuration/</loc>
+    <loc>https://docs.c3os.io/examples/examples/</loc>
     <lastmod>2022-02-09T17:56:26+01:00</lastmod>
   </url><url>
-    <loc>https://docs.c3os.io/installation/examples/</loc>
+    <loc>https://docs.c3os.io/examples/configuration/</loc>
+    <lastmod>2022-02-09T17:56:26+01:00</lastmod>
+  </url><url>
+    <loc>https://docs.c3os.io/reference/</loc>
+    <lastmod>2022-02-09T17:56:26+01:00</lastmod>
+  </url><url>
+    <loc>https://docs.c3os.io/installation/takeover/</loc>
+    <lastmod>2022-02-09T17:56:26+01:00</lastmod>
+  </url><url>
+    <loc>https://docs.c3os.io/installation/netboot/</loc>
     <lastmod>2022-02-09T17:56:26+01:00</lastmod>
   </url><url>
     <loc>https://docs.c3os.io/</loc>

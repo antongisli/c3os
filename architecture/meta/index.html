@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Tags :: c3os documentation</title>
+    <title>Meta-Distribution :: c3os documentation</title>
 
     
     <link href="/css/nucleus.css?1663019226" rel="stylesheet">
@@ -37,7 +37,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/tags/">
+  <body class="" data-url="/architecture/meta/">
     <nav id="sidebar" class="">
 
 
@@ -395,7 +395,7 @@
   
     
     <li data-nav-id="/architecture/" title="Architecture" class="dd-item
-        
+        parent
         
         
         ">
@@ -463,7 +463,7 @@
  
   
     
-      <li data-nav-id="/architecture/meta/" title="Meta-Distribution" class="dd-item ">
+      <li data-nav-id="/architecture/meta/" title="Meta-Distribution" class="dd-item active">
         <a href="/architecture/meta/">
         <b>- </b>Meta-Distribution
         
@@ -795,6 +795,17 @@
               <div>
                 <div id="top-bar">
                 
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='Edit this page' href="https://github.com/c3os-io/c3os/edit/master/docs/content/architecture/meta.md" target="blank">
+                      <i class="fas fa-code-branch"></i>
+                      <span id="top-github-link-text">Edit this page</span>
+                    </a>
+                  </div>
+                  
+                
                 
                 <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                     <span id="sidebar-toggle-span">
@@ -815,7 +826,13 @@
             
           
           
-            <a href='/'></a> > Tags
+            
+            
+          
+          
+            <a href='/'></a> > <a href='/architecture/'>Architecture</a> > Meta-Distribution
+          
+        
           
         
           
@@ -826,7 +843,15 @@
                 
                     <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#c3os">c3OS</a>
+      <ul>
+        <li><a href="#internal-components">Internal components</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -842,24 +867,35 @@
           
             <h1>
               
-                tag ::
-              
-              Tags
+              Meta-Distribution
             </h1>
           
 
         
 
 
-
-
-
+<p>We like to define c3os as a meta Linux Distribution as its goal is to convert any other distro to an immutable layout with Kubernetes Native components.</p>
+<h2 id="c3os">c3OS</h2>
+<p>The c3OS stack is composed of the following:</p>
 <ul>
-	
+<li>A core OS image release for each flavor in ISO, qcow2, and similar format (currently can pick from openSUSE and Alpine based) - provided for user convenience</li>
+<li>A release with k3s embedded</li>
+<li>A set of Kubernetes Native API components (CRDs) to install into the control-plane node, to manage deployment, artifacts creation, and lifecycle (WIP)</li>
+<li>A set of Kubernetes Native API components (CRDs) to install into the target nodes to manage and control the node after deployment (WIP)</li>
+<li>An agent installed into the nodes to be compliant with Kubernetes Native API components mentioned above</li>
+</ul>
+<p>Every component is extensible and modular such as it can be customized and replaced in the stack, and built off either locally or with Kubernetes</p>
+<h3 id="internal-components">Internal components</h3>
+<p>C3OS encompassess several components, some externally, most notably:</p>
+<ul>
+<li><a href="https://k3s.io">k3s</a> as a Kubernetes distribution</li>
+<li><a href="https://mudler.github.io/edgevpn">edgevpn</a> (optional) as fabric for the distributed network, node coordination and bootstrap. Provides also embedded DNS capabilities for the cluster.</li>
+<li><a href="https://rancher.github.io/elemental-toolkit/docs/">elemental-toolkit</a> as a fundament to build the Linux derivative. Indeed, any <code>Elemental</code> docs applies to <code>c3os</code> as well.</li>
+<li><a href="https://github.com/hakavlad/nohang">nohang</a> A sophisticated low memory handler for Linux</li>
 </ul>
 
 
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -1105,6 +1141,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1117,6 +1154,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1150,6 +1190,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1165,6 +1206,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1349,8 +1393,10 @@
 	 
 	 
 		
+			<a class="nav nav-prev" href="/architecture/immutable/" title="Immutable layout"> <i class="fa fa-chevron-left"></i></a>
 		
-			<a class="nav nav-next" href="/quickstart/" title="Quickstart" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+			<a class="nav nav-next" href="/architecture/network/" title="P2P Network" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1382,3 +1428,4 @@
 
   </body>
 </html>
+

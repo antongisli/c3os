@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Architecture on c3os documentation</title>
+    <link>https://docs.c3os.io/architecture/</link>
+    <description>Recent content in Architecture on c3os documentation</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 09 Feb 2022 17:56:26 +0100</lastBuildDate><atom:link href="https://docs.c3os.io/architecture/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Container based OS</title>
+      <link>https://docs.c3os.io/architecture/container/</link>
+      <pubDate>Wed, 09 Feb 2022 17:56:26 +0100</pubDate>
+      
+      <guid>https://docs.c3os.io/architecture/container/</guid>
+      <description>c3os is a container-based OS.
+A container based OS is an OS which is shipped via containers. Indeed, if it happens to be based on Linux (most probably) you can run the container image as well on your docker daemon. The image being being booted is the container, which contains all the required pieces in order to boot (Kernel, Initrd, Init system).
+Benefits of using containers to distribute upgrades Container registries are already widely supported and used by anyone.</description>
+    </item>
+    
+    <item>
+      <title>Immutable layout</title>
+      <link>https://docs.c3os.io/architecture/immutable/</link>
+      <pubDate>Wed, 09 Feb 2022 17:56:26 +0100</pubDate>
+      
+      <guid>https://docs.c3os.io/architecture/immutable/</guid>
+      <description>c3os adopts an Immutable layout, and derivatives created with its toolkit inherits the same immutability aspects.
+An immutable OS is a carefully engineered system which boots in a restricted, permissionless mode, where certain paths of the system are not writeable. For instance, after installation it&amp;rsquo;s not possible to install additional packages in the system, and any configuration change is discarded after reboot.
+A running Linux based OS system will look like with the following paths:</description>
+    </item>
+    
+    <item>
+      <title>Meta-Distribution</title>
+      <link>https://docs.c3os.io/architecture/meta/</link>
+      <pubDate>Wed, 09 Feb 2022 17:56:26 +0100</pubDate>
+      
+      <guid>https://docs.c3os.io/architecture/meta/</guid>
+      <description>We like to define c3os as a meta Linux Distribution as its goal is to convert any other distro to an immutable layout with Kubernetes Native components.
+c3OS The c3OS stack is composed of the following:
+ A core OS image release for each flavor in ISO, qcow2, and similar format (currently can pick from openSUSE and Alpine based) - provided for user convenience A release with k3s embedded A set of Kubernetes Native API components (CRDs) to install into the control-plane node, to manage deployment, artifacts creation, and lifecycle (WIP) A set of Kubernetes Native API components (CRDs) to install into the target nodes to manage and control the node after deployment (WIP) An agent installed into the nodes to be compliant with Kubernetes Native API components mentioned above  Every component is extensible and modular such as it can be customized and replaced in the stack, and built off either locally or with Kubernetes</description>
+    </item>
+    
+    <item>
+      <title>P2P Network</title>
+      <link>https://docs.c3os.io/architecture/network/</link>
+      <pubDate>Wed, 09 Feb 2022 17:56:26 +0100</pubDate>
+      
+      <guid>https://docs.c3os.io/architecture/network/</guid>
+      <description>c3OS can automatically setup a VPN between the nodes using edgevpn. This also allows the nodes to automatically coordinate, discover/configure and establish a network overlay spanning across multiple regions.
+The connection happens in 3 stages, where the discovery is driven by DHT and mDNS (which can be selectively disabled/enabled)
+ Discovery Gossip network Full connectivity  </description>
+    </item>
+    
+  </channel>
+</rss>

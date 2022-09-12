@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Tags :: c3os documentation</title>
+    <title>Full P2P mesh support :: c3os documentation</title>
 
     
     <link href="/css/nucleus.css?1663019226" rel="stylesheet">
@@ -37,7 +37,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/tags/">
+  <body class="" data-url="/installation/p2p/">
     <nav id="sidebar" class="">
 
 
@@ -138,7 +138,7 @@
   
     
     <li data-nav-id="/installation/" title="Installation reference" class="dd-item
-        
+        parent
         
         
         ">
@@ -227,7 +227,7 @@
  
   
     
-      <li data-nav-id="/installation/p2p/" title="Full P2P mesh support" class="dd-item ">
+      <li data-nav-id="/installation/p2p/" title="Full P2P mesh support" class="dd-item active">
         <a href="/installation/p2p/">
         <b>- </b>Full P2P mesh support
         
@@ -795,6 +795,17 @@
               <div>
                 <div id="top-bar">
                 
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='Edit this page' href="https://github.com/c3os-io/c3os/edit/master/docs/content/installation/p2p.md" target="blank">
+                      <i class="fas fa-code-branch"></i>
+                      <span id="top-github-link-text">Edit this page</span>
+                    </a>
+                  </div>
+                  
+                
                 
                 <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                     <span id="sidebar-toggle-span">
@@ -815,7 +826,13 @@
             
           
           
-            <a href='/'></a> > Tags
+            
+            
+          
+          
+            <a href='/'></a> > <a href='/installation/'>Installation reference</a> > Full P2P mesh support
+          
+        
           
         
           
@@ -826,7 +843,21 @@
                 
                     <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#prerequisites">Prerequisites</a></li>
+    <li><a href="#configuration">Configuration</a>
+      <ul>
+        <li><a href="#network_token"><code>network_token</code></a></li>
+        <li><a href="#network_id"><code>network_id</code></a></li>
+        <li><a href="#role"><code>role</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#join-new-nodes">Join new nodes</a></li>
+    <li><a href="#connect-to-the-nodes">Connect to the nodes</a></li>
+    <li><a href="#get-kubeconfig">Get kubeconfig</a></li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -842,9 +873,7 @@
           
             <h1>
               
-                tag ::
-              
-              Tags
+              Full P2P mesh support
             </h1>
           
 
@@ -852,14 +881,64 @@
 
 
 
+<div class="notices note" ><p>This feature is crazy and experimental!</p>
+</div>
 
-
+<p>This section will guide on how to leverage the p2p full-mesh capabilities of c3os.</p>
+<p>c3OS supports p2p full-mesh out of the box. That allows to seamelessly interconnect clusters and nodes from different regions into an unified overlay network,
+additionally, the same network is used for co-ordinating nodes automatically, allowing self-automated node bootstrap.</p>
+<p>A hybrid network is automatically set up between all the nodes, as such there is no need to expose them over the Internet, and either expose the Kubernetes management API outside, reducing attacker&rsquo;s exploiting surface.</p>
+<p>C3os can be configured to automatically bootstrap a kubernetes cluster with the full-mesh functionalities, or just either add an additional interface to the machines to let them communicate within a new network segment.</p>
+<p>If you are not familiar with the process, it is suggested to follow the <a href="/quickstart/installation">quickstart</a> first, and the steps below in sequence.
+The section below just explains the difference in the configuration options to enable p2p full-mesh during the installation phase.</p>
+<h2 id="prerequisites">Prerequisites</h2>
 <ul>
-	
+<li><code>c3os-cli</code></li>
 </ul>
+<h2 id="configuration">Configuration</h2>
+<p>In order to configure a node to join over the same p2p network during installation add a <code>c3os</code> block in the configuration, like the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">c3os</span>:
+  <span style="color:#f92672">network_token</span>: <span style="color:#e6db74">&#34;....&#34;</span>
+  <span style="color:#75715e"># Optionally, set a network id (for multiple clusters in the same network)</span>
+  <span style="color:#75715e"># network_id: &#34;dev&#34;</span>
+  <span style="color:#75715e"># Optionally set a role</span>
+  <span style="color:#75715e"># role: &#34;master&#34;</span>
+
+</code></pre></div><p>The <code>c3os</code> block is used to configure settings to the mesh functionalities. The minimum required argument is the <code>network_token</code>.</p>
+<h3 id="network_token"><code>network_token</code></h3>
+<p>The <code>network_token</code> is a unique, shared secret which is spread over the nodes and can be generated with the <code>c3os-cli</code>.
+It will make all the node connect automatically to the same network. Every node will generate a set of private/public key keypair automatically on boot that are used to communicate securely within a e2e encrypted channel.</p>
+<p>To generate a new network token, you can use the <code>c3os-cli</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">c3os generate-token
+</code></pre></div><h3 id="network_id"><code>network_id</code></h3>
+<p>An optional, unique identifier for the cluster. This allows to bootstrap multiple cluster over the same underlaying network.</p>
+<h3 id="role"><code>role</code></h3>
+<p>Force a role for the node. Available: <code>worker</code>, <code>master</code>.</p>
+<p>For a full reference of all the supported use cases, see <a href="https://rancher.github.io/elemental-toolkit/docs/reference/cloud_init/">cloud-init</a>.</p>
+<h2 id="join-new-nodes">Join new nodes</h2>
+<p>To join new nodes, simply re-apply the process to new nodes by specifying the same <code>config.yaml</code> for all the machines. Unless you have specified a role for each of the nodes, the configuration doesn&rsquo;t need any further change. The machines will connect automatically between themselves, either remotely on local network.</p>
+<h2 id="connect-to-the-nodes">Connect to the nodes</h2>
+<p>The <code>c3os-cli</code> can be used to establish a tunnel with the nodes network given a <code>network_token</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo c3os bridge --network-token &lt;TOKEN&gt;
+</code></pre></div><p>This command will create a tun device in your machine and will make possible to contact each node in the cluster.</p>
+
+<div class="notices note" ><p>The command requires root permissions in order to create a tun/tap device on the host</p>
+</div>
+
+<p>An API will be also available at <a href="http://localhost:8080">localhost:8080</a> for inspecting the network status.</p>
+<h2 id="get-kubeconfig">Get kubeconfig</h2>
+<p>To get the kubeconfig it is sufficient or either login to the master node and get it from the engine ( e.g. k3s puts it <code>/etc/rancher/k3s/k3s.yaml</code>) or using the <code>c3os</code> cli.</p>
+<p>By using the CLI, you need to be connected to the bridge, or either logged in from one of the nodes and perform the commands in the console.</p>
+<p>If you are using the CLI, you need to run the bridge in a separate window.</p>
+<p>To get the kubeconfig, run the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">c3os get-kubeconfig &gt; kubeconfig
+</code></pre></div>
+<div class="notices note" ><p><code>c3os bridge</code> acts like <code>kubectl proxy</code>. you need to keep it open to operate the kubernetes cluster and access the API.</p>
+</div>
 
 
-<footer class=" footline" >
+
+<footer class="footline">
 	
 </footer>
 
@@ -929,6 +1008,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -941,6 +1021,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -990,6 +1073,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1005,6 +1089,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1349,8 +1436,10 @@
 	 
 	 
 		
+			<a class="nav nav-prev" href="/installation/automated/" title="Automated installation"> <i class="fa fa-chevron-left"></i></a>
 		
-			<a class="nav nav-next" href="/quickstart/" title="Quickstart" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+			<a class="nav nav-next" href="/installation/raspberry/" title="Raspberry" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1382,3 +1471,4 @@
 
   </body>
 </html>
+

@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Tags :: c3os documentation</title>
+    <title>Common setup :: c3os documentation</title>
 
     
     <link href="/css/nucleus.css?1663019226" rel="stylesheet">
@@ -37,7 +37,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/tags/">
+  <body class="" data-url="/examples/examples/">
     <nav id="sidebar" class="">
 
 
@@ -513,7 +513,7 @@
   
     
     <li data-nav-id="/examples/" title="Examples" class="dd-item
-        
+        parent
         
         
         ">
@@ -539,7 +539,7 @@
  
   
     
-      <li data-nav-id="/examples/examples/" title="Common setup" class="dd-item ">
+      <li data-nav-id="/examples/examples/" title="Common setup" class="dd-item active">
         <a href="/examples/examples/">
         <b>- </b>Common setup
         
@@ -795,6 +795,17 @@
               <div>
                 <div id="top-bar">
                 
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='Edit this page' href="https://github.com/c3os-io/c3os/edit/master/docs/content/examples/examples.md" target="blank">
+                      <i class="fas fa-code-branch"></i>
+                      <span id="top-github-link-text">Edit this page</span>
+                    </a>
+                  </div>
+                  
+                
                 
                 <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                     <span id="sidebar-toggle-span">
@@ -815,7 +826,13 @@
             
           
           
-            <a href='/'></a> > Tags
+            
+            
+          
+          
+            <a href='/'></a> > <a href='/examples/'>Examples</a> > Common setup
+          
+        
           
         
           
@@ -826,7 +843,12 @@
                 
                     <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#single-node-cluster-with-default-userpassword">Single node cluster with default user/password</a></li>
+    <li><a href="#hostname">Hostname</a></li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -842,24 +864,71 @@
           
             <h1>
               
-                tag ::
-              
-              Tags
+              Common setup
             </h1>
           
 
         
 
 
+<p>In the following section you can find example configuration files to achieve specific <code>c3os</code> setups.</p>
+<h1 id="single-node-cluster">Single node cluster</h1>
+<p>By default <code>c3os</code> requires multiple nodes. As for the <code>c3os</code> decentralized nature, it requires co-ordination between at least 2 nodes to achieve consensus on IPs, network setting, etc.</p>
+<p>In order to create single-node cluster, we need to force both the <code>role</code> and the <code>ip</code> by disabling <code>DHCP</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">c3os</span>:
+  <span style="color:#f92672">network_token</span>: <span style="color:#e6db74">&#34;....&#34;</span>
+  <span style="color:#f92672">role</span>: <span style="color:#e6db74">&#34;master&#34;</span>
+<span style="color:#f92672">vpn</span>:
+  <span style="color:#75715e"># EdgeVPN environment options</span>
+  <span style="color:#f92672">DHCP</span>: <span style="color:#e6db74">&#34;false&#34;</span>
+  <span style="color:#f92672">ADDRESS</span>: <span style="color:#e6db74">&#34;10.1.0.2/24&#34;</span>
+</code></pre></div><p>Note, the same setup can be used to specify master nodes in a set, as to join nodes it is still possible without specifying any extra setting:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">c3os</span>:
+  <span style="color:#f92672">network_token</span>: <span style="color:#e6db74">&#34;....&#34;</span>
+</code></pre></div><p>As always, IPs here are arbitrary as they are virtual ips in the VPN which is created between the cluster nodes.</p>
+<h1 id="run-only-k3s-without-vpns">Run only k3s without VPNs</h1>
+<p><code>c3os</code> can be also used without any VPN and P2P network. Infact, <code>k3s</code> is already pre-installed, and it is sufficient to not specify any <code>c3os</code> block in the cloud init configuration.</p>
+<p>For example, to start <code>k3s</code> as a server with <code>c3os</code> it&rsquo;s sufficient to specify the <code>k3s</code> service in the config file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#75715e">#node-config</span>
 
+<span style="color:#f92672">k3s</span>:
+  <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
+</code></pre></div><p>And similarly for an <code>agent</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#75715e">#node-config</span>
+<span style="color:#f92672">k3s-agent</span>:
+  <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
+  <span style="color:#f92672">env</span>:
+    <span style="color:#f92672">K3S_TOKEN</span>: <span style="color:#ae81ff">...</span>
+    <span style="color:#f92672">K3S_URL</span>: <span style="color:#ae81ff">...</span>
+</code></pre></div><h2 id="single-node-cluster-with-default-userpassword">Single node cluster with default user/password</h2>
+<p>This is will setup k3s single-node + VPN with a static ip (<code>10.1.0.2</code>).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">c3os</span>:
+  <span style="color:#f92672">network_token</span>: <span style="color:#e6db74">&#34;....&#34;</span>
+  <span style="color:#f92672">role</span>: <span style="color:#e6db74">&#34;master&#34;</span>
 
+<span style="color:#f92672">vpn</span>:
+  <span style="color:#75715e"># EdgeVPN environment options</span>
+  <span style="color:#f92672">DHCP</span>: <span style="color:#e6db74">&#34;false&#34;</span>
+  <span style="color:#f92672">ADDRESS</span>: <span style="color:#e6db74">&#34;10.1.0.2/24&#34;</span>
+  
+<span style="color:#f92672">stages</span>:
+   <span style="color:#f92672">initramfs</span>:
+     - <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;Set user and password&#34;</span>
+       <span style="color:#f92672">users</span>:
+        <span style="color:#f92672">c3os</span>:
+          <span style="color:#f92672">passwd</span>: <span style="color:#e6db74">&#34;c3os&#34;</span>
+</code></pre></div><h2 id="hostname">Hostname</h2>
+<p>Sometimes you might want to create a single cloud-init file for a set of machines, and also make sure each node has a different hostname.</p>
+<p>The cloud-config syntax supports templating, so one could automate hostname generation based on the machine id which is generated for each host:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#75715e">#node-config</span>
 
-<ul>
-	
-</ul>
+<span style="color:#f92672">stages</span>:
+   <span style="color:#f92672">initramfs</span>:
+     - <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;Setup hostname&#34;</span>
+       <span style="color:#f92672">hostname</span>: <span style="color:#e6db74">&#34;node-{{ trunc 4 .MachineID }}&#34;</span>
+</code></pre></div>
 
-
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -1185,6 +1254,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1197,6 +1267,7 @@
             
             
                 
+                    
                     
                 
                 
@@ -1213,6 +1284,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1349,8 +1423,10 @@
 	 
 	 
 		
+			<a class="nav nav-prev" href="/examples/" title="Examples"> <i class="fa fa-chevron-left"></i></a>
 		
-			<a class="nav nav-next" href="/quickstart/" title="Quickstart" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+			<a class="nav nav-next" href="/examples/configuration/" title="Configuring a node after install" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1382,3 +1458,4 @@
 
   </body>
 </html>
+

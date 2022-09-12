@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Tags :: c3os documentation</title>
+    <title>Container based OS :: c3os documentation</title>
 
     
     <link href="/css/nucleus.css?1663019226" rel="stylesheet">
@@ -37,7 +37,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/tags/">
+  <body class="" data-url="/architecture/container/">
     <nav id="sidebar" class="">
 
 
@@ -395,7 +395,7 @@
   
     
     <li data-nav-id="/architecture/" title="Architecture" class="dd-item
-        
+        parent
         
         
         ">
@@ -421,7 +421,7 @@
  
   
     
-      <li data-nav-id="/architecture/container/" title="Container based OS" class="dd-item ">
+      <li data-nav-id="/architecture/container/" title="Container based OS" class="dd-item active">
         <a href="/architecture/container/">
         <b>- </b>Container based OS
         
@@ -795,6 +795,17 @@
               <div>
                 <div id="top-bar">
                 
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='Edit this page' href="https://github.com/c3os-io/c3os/edit/master/docs/content/architecture/container.md" target="blank">
+                      <i class="fas fa-code-branch"></i>
+                      <span id="top-github-link-text">Edit this page</span>
+                    </a>
+                  </div>
+                  
+                
                 
                 <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                     <span id="sidebar-toggle-span">
@@ -815,7 +826,13 @@
             
           
           
-            <a href='/'></a> > Tags
+            
+            
+          
+          
+            <a href='/'></a> > <a href='/architecture/'>Architecture</a> > Container based OS
+          
+        
           
         
           
@@ -826,7 +843,11 @@
                 
                     <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#benefits-of-using-containers-to-distribute-upgrades">Benefits of using containers to distribute upgrades</a></li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -842,24 +863,24 @@
           
             <h1>
               
-                tag ::
-              
-              Tags
+              Container based OS
             </h1>
           
 
         
 
 
+<p>c3os is a container-based OS.</p>
+<p>A container based OS is an OS which is shipped via containers. Indeed, if it happens to be based on Linux (most probably) you can run the container image as well on your docker daemon. The image being being booted is the container, which contains all the required pieces in order to boot (Kernel, Initrd, Init system).</p>
+<h2 id="benefits-of-using-containers-to-distribute-upgrades">Benefits of using containers to distribute upgrades</h2>
+<p>Container registries are already widely supported and used by anyone.</p>
+<p>If you are operating a Kubernetes cluster and deploying apps on top, chances are that you already have a container registry deployed somewhere and configured to store them or manage your infrastructure stack. By using container images lets you re-use the same infrastructure to propagate upgrades to the nodes and handle customizations.</p>
+<p>Containers images can be extended after build by using standard container building practices, and seamlessly plug into your existing pipelines. c3OS allows to seamlessly upgrade to container images that are derived from other versions.
+This means that customizing a c3OS version requires just to build a standard container image with a plain <code>Dockerfile</code>, plus the bits that are actually needed.</p>
+<p>If you are familiar with Dockerfiles, then you are good to go to roll your own custom OS version to provision in the nodes. That removes any friction to questions like &ldquo;How do I add this package to my nodes?&rdquo;, or more complex ones as &ldquo;How can I replace with my own Kernel?&rdquo;.</p>
 
 
-
-<ul>
-	
-</ul>
-
-
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -1105,6 +1126,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -1117,6 +1139,7 @@
             
             
                 
+                    
                     
                 
                 
@@ -1133,6 +1156,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1349,8 +1375,10 @@
 	 
 	 
 		
+			<a class="nav nav-prev" href="/architecture/" title="Architecture"> <i class="fa fa-chevron-left"></i></a>
 		
-			<a class="nav nav-next" href="/quickstart/" title="Quickstart" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+			<a class="nav nav-next" href="/architecture/immutable/" title="Immutable layout" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1382,3 +1410,4 @@
 
   </body>
 </html>
+
