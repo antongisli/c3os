@@ -12,22 +12,22 @@
     <title>Installation :: c3os documentation</title>
 
     
-    <link href="/css/nucleus.css?1663019226" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1663019226" rel="stylesheet">
-    <link href="/css/hybrid.css?1663019226" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1663019226" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1663019226" rel="stylesheet">
-    <link href="/css/auto-complete.css?1663019226" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1663019226" rel="stylesheet">
-    <link href="/css/theme.css?1663019226" rel="stylesheet">
-    <link href="/css/tabs.css?1663019226" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1663019226" rel="stylesheet">
+    <link href="/css/nucleus.css?1663020486" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1663020486" rel="stylesheet">
+    <link href="/css/hybrid.css?1663020486" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1663020486" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1663020486" rel="stylesheet">
+    <link href="/css/auto-complete.css?1663020486" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1663020486" rel="stylesheet">
+    <link href="/css/theme.css?1663020486" rel="stylesheet">
+    <link href="/css/tabs.css?1663020486" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1663020486" rel="stylesheet">
     
-    <link href="/css/theme-blue.css?1663019226" rel="stylesheet">
+    <link href="/css/theme-blue.css?1663020486" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1663019226"></script>
+    <script src="/js/jquery-3.3.1.min.js?1663020486"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -56,14 +56,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1663019226"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1663019226"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1663020486"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1663020486"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/docs.c3os.io";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1663019226"></script>
+<script type="text/javascript" src="/js/search.js?1663020486"></script>
 
     
   </div>
@@ -899,8 +899,8 @@ However, c3OS Kubernetes Native components allows to create such artifacts insid
 <p>c3OS can be used to turn any distro in an immutable system, however, for user convenience there are several artifacts published as part of the releases to get started.</p>
 <p>You can find the latest releases in the <a href="https://github.com/c3os-io/provider-c3os/releases">release page over Github</a>. For instance, if we would like to pick the alpine based version, we would download the <code>c3os-alpine-v0.57.0-k3sv1.21.14+k3s1.iso</code> ISO file, where <code>v1.21.14+k3s1</code> in the name is the <code>k3s</code> version and <code>v0.57.0</code> is the c3os one.</p>
 
-<div class="notices note" ><p>The releases in the <a href="https://github.com/c3os-io/c3os/releases">c3os-io/c3os</a> are the <code>c3os</code> core images that ship without <code>k3s</code> and <code>p2p</code> full-mesh functionalities, however further extensions can be installed dynamically in runtime by using the <a href="">c3os bundles</a> mechanism.</p>
-<p>The releases in <a href="https://github.com/c3os-io/provider-c3os/releases">c3os-io/provider-c3os</a> instead ship <code>k3s</code> and optionally <code>p2p</code> full-mesh support that needs to be explictly enabled. In follow-up releases there will be also <em>k3s-only</em> artifacts.</p>
+<div class="notices note" ><p>The releases in the <a href="https://github.com/c3os-io/c3os/releases">c3os-io/c3os</a> repository are the <code>c3os</code> core images that ship without <code>k3s</code> and <code>p2p</code> full-mesh functionalities, however further extensions can be installed dynamically in runtime by using the <a href="">c3os bundles</a> mechanism.</p>
+<p>The releases in <a href="https://github.com/c3os-io/provider-c3os/releases">c3os-io/provider-c3os</a> instead ships <code>k3s</code> and <code>p2p</code> full-mesh support that needs to be explictly enabled. In follow-up releases there will be available also <em>k3s-only</em> artifacts.</p>
 </div>
 
 <h3 id="booting-up">Booting up</h3>
@@ -912,9 +912,8 @@ There are several entries, depending on how you plan to install c3os. Let&rsquo;
 The machine will boot, and eventually a QR code will be printed out of the screen:</p>
 <p><img src="https://user-images.githubusercontent.com/2420543/189219806-29b4deed-b4a1-4704-b558-7a60ae31caf2.gif" alt="livecd"></p>
 <h3 id="configuration">Configuration</h3>
-<p>Now we need to prepare a config file for the node that we are configuring.</p>
-<p>At this stage the machine is waiting for the configuration to kick-start and go futher with the installation process. Configuration can be either served via QR code, or manually via logging into the box and starting the installation process manually with a config file.</p>
-<p>We will configure the node as a single-node kubernetes cluster, so we enable <code>k3s</code>, and we set a default password for the <code>c3os</code> user to later access to the box:</p>
+<p>At this stage the machine is waiting for the configuration to continue futher with the installation process. Configuration can be either served via QR code, or manually via logging into the box and starting the installation process with a config file. The config file is a YAML file mixed with <code>cloud-init</code> syntax and the config of <code>c3os</code> itself.</p>
+<p>In this example we will configure the node as a single-node kubernetes cluster, so we enable <code>k3s</code>, and we set a default password for the <code>c3os</code> user to later access to the box, alongside with some ssh keys:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#75715e">#node-config</span>
 
 <span style="color:#f92672">stages</span>:
@@ -1514,19 +1513,19 @@ c3os@c3os:~&gt;
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1663019226"></script>
-    <script src="/js/perfect-scrollbar.min.js?1663019226"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1663019226"></script>
-    <script src="/js/jquery.sticky.js?1663019226"></script>
-    <script src="/js/featherlight.min.js?1663019226"></script>
-    <script src="/js/highlight.pack.js?1663019226"></script>
+    <script src="/js/clipboard.min.js?1663020486"></script>
+    <script src="/js/perfect-scrollbar.min.js?1663020486"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1663020486"></script>
+    <script src="/js/jquery.sticky.js?1663020486"></script>
+    <script src="/js/featherlight.min.js?1663020486"></script>
+    <script src="/js/highlight.pack.js?1663020486"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1663019226"></script>
-    <script src="/js/learn.js?1663019226"></script>
-    <script src="/js/hugo-learn.js?1663019226"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1663020486"></script>
+    <script src="/js/learn.js?1663020486"></script>
+    <script src="/js/hugo-learn.js?1663020486"></script>
     
         
-            <script src="/mermaid/mermaid.js?1663019226"></script>
+            <script src="/mermaid/mermaid.js?1663020486"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });
