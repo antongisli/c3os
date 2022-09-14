@@ -12,22 +12,22 @@
     <title>Automated installation :: c3os documentation</title>
 
     
-    <link href="/css/nucleus.css?1663020486" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1663020486" rel="stylesheet">
-    <link href="/css/hybrid.css?1663020486" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1663020486" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1663020486" rel="stylesheet">
-    <link href="/css/auto-complete.css?1663020486" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1663020486" rel="stylesheet">
-    <link href="/css/theme.css?1663020486" rel="stylesheet">
-    <link href="/css/tabs.css?1663020486" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1663020486" rel="stylesheet">
+    <link href="/css/nucleus.css?1663161484" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1663161484" rel="stylesheet">
+    <link href="/css/hybrid.css?1663161484" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1663161484" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1663161484" rel="stylesheet">
+    <link href="/css/auto-complete.css?1663161484" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1663161484" rel="stylesheet">
+    <link href="/css/theme.css?1663161484" rel="stylesheet">
+    <link href="/css/tabs.css?1663161484" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1663161484" rel="stylesheet">
     
-    <link href="/css/theme-blue.css?1663020486" rel="stylesheet">
+    <link href="/css/theme-blue.css?1663161484" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1663020486"></script>
+    <script src="/js/jquery-3.3.1.min.js?1663161484"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -56,14 +56,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1663020486"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1663020486"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1663161484"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1663161484"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/docs.c3os.io";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1663020486"></script>
+<script type="text/javascript" src="/js/search.js?1663161484"></script>
 
     
   </div>
@@ -935,7 +935,9 @@ $ docker run -v $PWD:/cOS <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>       -v /var/run/docker.sock:/var/run/docker.sock <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>       -i --rm quay.io/costoolkit/elemental-cli:v0.0.15-8a78e6b --name <span style="color:#e6db74">&#34;custom-iso&#34;</span> --debug build-iso --date<span style="color:#f92672">=</span>false --local --overlay-iso /cOS/overlay/files-iso $IMAGE --output /cOS/
 </code></pre></div><h3 id="kubernetes">Kubernetes</h3>
-<p>It is possible to create ISOs and derivatives using Kubernetes Native API resources, which allows to tweak the container image by overlaying others on top - without breaking the concept of immutability, and single image OS, consider the following:</p>
+<p>It is possible to create ISOs and derivatives using extended Kubernetes API resources with an embedded config file to drive automated installations.</p>
+<p>This method also allows to tweak the container image by overlaying others on top - without breaking the concept of immutability and single image OS.</p>
+<p>Consider the following example, which requires a Kubernetes cluster to run the components, but works also on <code>kind</code>:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">
 <span style="color:#75715e"># Adds the c3os repo to helm</span>
 $ helm repo add c3os https://c3os-io.github.io/helm-charts
@@ -1015,9 +1017,16 @@ cat <span style="color:#e6db74">&lt;&lt;&#39;EOF&#39; | kubectl apply -f -
 </span><span style="color:#e6db74">            install:
 </span><span style="color:#e6db74">              device: &#34;/dev/sda&#34;
 </span><span style="color:#e6db74">              reboot: true
-</span><span style="color:#e6db74">              poweroff: true
+</span><span style="color:#e6db74">              poweroff: false
 </span><span style="color:#e6db74">              auto: true # Required, for automated installations
 </span><span style="color:#e6db74">EOF</span>
+
+<span style="color:#75715e"># Note on running with kind:</span>
+$ IP<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>docker inspect kind-control-plane | jq -r <span style="color:#e6db74">&#39;.[0].NetworkSettings.Networks.kind.IPAddress&#39;</span><span style="color:#66d9ef">)</span>
+$ PORT<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>kubectl get svc hello-c3os -o json | jq <span style="color:#e6db74">&#39;.spec.ports[0].nodePort&#39;</span><span style="color:#66d9ef">)</span>
+$ curl http://$IP:$PORT/hello-c3os.iso -o test.iso
+
+
 </code></pre></div>
 
 <footer class="footline">
@@ -1531,19 +1540,19 @@ cat <span style="color:#e6db74">&lt;&lt;&#39;EOF&#39; | kubectl apply -f -
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1663020486"></script>
-    <script src="/js/perfect-scrollbar.min.js?1663020486"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1663020486"></script>
-    <script src="/js/jquery.sticky.js?1663020486"></script>
-    <script src="/js/featherlight.min.js?1663020486"></script>
-    <script src="/js/highlight.pack.js?1663020486"></script>
+    <script src="/js/clipboard.min.js?1663161484"></script>
+    <script src="/js/perfect-scrollbar.min.js?1663161484"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1663161484"></script>
+    <script src="/js/jquery.sticky.js?1663161484"></script>
+    <script src="/js/featherlight.min.js?1663161484"></script>
+    <script src="/js/highlight.pack.js?1663161484"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1663020486"></script>
-    <script src="/js/learn.js?1663020486"></script>
-    <script src="/js/hugo-learn.js?1663020486"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1663161484"></script>
+    <script src="/js/learn.js?1663161484"></script>
+    <script src="/js/hugo-learn.js?1663161484"></script>
     
         
-            <script src="/mermaid/mermaid.js?1663020486"></script>
+            <script src="/mermaid/mermaid.js?1663161484"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });
