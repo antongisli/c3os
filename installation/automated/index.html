@@ -12,22 +12,22 @@
     <title>Automated installation :: c3os documentation</title>
 
     
-    <link href="/css/nucleus.css?1663161484" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1663161484" rel="stylesheet">
-    <link href="/css/hybrid.css?1663161484" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1663161484" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1663161484" rel="stylesheet">
-    <link href="/css/auto-complete.css?1663161484" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1663161484" rel="stylesheet">
-    <link href="/css/theme.css?1663161484" rel="stylesheet">
-    <link href="/css/tabs.css?1663161484" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1663161484" rel="stylesheet">
+    <link href="/css/nucleus.css?1663191160" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1663191160" rel="stylesheet">
+    <link href="/css/hybrid.css?1663191160" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1663191160" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1663191160" rel="stylesheet">
+    <link href="/css/auto-complete.css?1663191160" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1663191160" rel="stylesheet">
+    <link href="/css/theme.css?1663191160" rel="stylesheet">
+    <link href="/css/tabs.css?1663191160" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1663191160" rel="stylesheet">
     
-    <link href="/css/theme-blue.css?1663161484" rel="stylesheet">
+    <link href="/css/theme-blue.css?1663191160" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1663161484"></script>
+    <script src="/js/jquery-3.3.1.min.js?1663191160"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -56,14 +56,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1663161484"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1663161484"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1663191160"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1663191160"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/docs.c3os.io";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1663161484"></script>
+<script type="text/javascript" src="/js/search.js?1663191160"></script>
 
     
   </div>
@@ -923,17 +923,19 @@ $ mkisofs -output ci.iso -volid cidata -joliet -rock user-data meta-data
 <h3 id="locally">Locally</h3>
 <p>To remaster an ISO locally you just need docker.</p>
 <p>As c3os is based on elemental, the elemental-cli can be used to create a new ISO, with an additional config, consider the following steps:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mkdir -p files-iso/boot/grub2
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ IMAGE<span style="color:#f92672">=</span>&lt;source/image&gt;
+$ mkdir -p files-iso/boot/grub2
 <span style="color:#75715e"># You can replace this step with your own grub config. This GRUB configuration is the boot menu of the ISO</span>
 $ wget https://raw.githubusercontent.com/c3os-io/c3os/master/overlay/files-iso/boot/grub2/grub.cfg -O files-iso/boot/grub2/grub.cfg
 <span style="color:#75715e"># Copy the config file</span>
 $ cp -rfv cloud_init.yaml files-iso/config.yaml
 <span style="color:#75715e"># Pull the image locally</span>
 $ docker pull $IMAGE
-<span style="color:#75715e"># Optionally, modify the image, and build a new one.</span>
-$ docker run -v $PWD:/cOS <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>       -v /var/run/docker.sock:/var/run/docker.sock <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>       -i --rm quay.io/costoolkit/elemental-cli:v0.0.15-8a78e6b --name <span style="color:#e6db74">&#34;custom-iso&#34;</span> --debug build-iso --date<span style="color:#f92672">=</span>false --local --overlay-iso /cOS/overlay/files-iso $IMAGE --output /cOS/
+<span style="color:#75715e"># Optionally, modify the image here!</span>
+<span style="color:#75715e"># docker run --entrypoint /bin/bash --name changes -ti $IMAGE</span>
+<span style="color:#75715e"># docker commit changes $IMAGE</span>
+<span style="color:#75715e"># Build an ISO with $IMAGE</span>
+$ docker run -v $PWD:/cOS -v /var/run/docker.sock:/var/run/docker.sock -i --rm quay.io/c3os/osbuilder-tools:v0.1.0 --name <span style="color:#e6db74">&#34;custom-iso&#34;</span> --debug build-iso --date<span style="color:#f92672">=</span>false --local --overlay-iso /cOS/files-iso $IMAGE --output /cOS/
 </code></pre></div><h3 id="kubernetes">Kubernetes</h3>
 <p>It is possible to create ISOs and derivatives using extended Kubernetes API resources with an embedded config file to drive automated installations.</p>
 <p>This method also allows to tweak the container image by overlaying others on top - without breaking the concept of immutability and single image OS.</p>
@@ -1540,19 +1542,19 @@ $ curl http://$IP:$PORT/hello-c3os.iso -o test.iso
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1663161484"></script>
-    <script src="/js/perfect-scrollbar.min.js?1663161484"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1663161484"></script>
-    <script src="/js/jquery.sticky.js?1663161484"></script>
-    <script src="/js/featherlight.min.js?1663161484"></script>
-    <script src="/js/highlight.pack.js?1663161484"></script>
+    <script src="/js/clipboard.min.js?1663191160"></script>
+    <script src="/js/perfect-scrollbar.min.js?1663191160"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1663191160"></script>
+    <script src="/js/jquery.sticky.js?1663191160"></script>
+    <script src="/js/featherlight.min.js?1663191160"></script>
+    <script src="/js/highlight.pack.js?1663191160"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1663161484"></script>
-    <script src="/js/learn.js?1663161484"></script>
-    <script src="/js/hugo-learn.js?1663161484"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1663191160"></script>
+    <script src="/js/learn.js?1663191160"></script>
+    <script src="/js/hugo-learn.js?1663191160"></script>
     
         
-            <script src="/mermaid/mermaid.js?1663161484"></script>
+            <script src="/mermaid/mermaid.js?1663191160"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });
